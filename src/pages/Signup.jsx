@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -76,7 +77,7 @@ export default function Signup() {
 
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:8000/api/auth/signup', form)
+            const response = await axios.post('https://odisha-bizz-backend.onrender.com/api/auth/signup', form)
 
             if (response.status === 201) {
                 toast.success("Signup successful!");
@@ -212,7 +213,7 @@ export default function Signup() {
 
                         <p className="text-center text-xs mt-3 text-gray-500">
                             Already have an account?{" "}
-                            <a href="/login" className="text-indigo-600 font-medium hover:underline">Log in</a>
+                            <Link to="/login" className="text-indigo-600 font-medium hover:underline">Log in</Link>
                         </p>
                     </div>
                 </div>

@@ -81,7 +81,7 @@ export default function Signup() {
 
             if (response.status === 201) {
                 toast.success("Signup successful!");
-                navigate("/login");
+                navigate("/admin/login");
 
             }
 

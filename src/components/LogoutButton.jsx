@@ -17,7 +17,7 @@ const LogoutButton = () => {
 
             if (res.status === 200) {
                 toast.success("Logged out successfully!"); // show success toast
-                navigate("/login"); // redirect after logout
+                navigate("/admin/login"); // redirect after logout
             } else {
                 toast.error("Logout failed. Please try again."); // fallback
             }

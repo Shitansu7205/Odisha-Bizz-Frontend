@@ -4,6 +4,7 @@ import Gallery from '@/components/Gallery'
 import React from 'react'
 import WhyChooseUs from '@/components/Whyus'
 import FeaturedServices from '@/components/FeaturedServices'
+import BusinessListingForm from '@/components/BuisnessListingForm'
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <Gallery />
             <FeaturedServices />
             <WhyChooseUs />
+            <BusinessListingForm />
         
         </>
     )

@@ -4,9 +4,10 @@ import Unauthorized from "../components/Unauthorized";
 import LogoutButton from "@/components/LogoutButton";
 import Allproducts from "../components/Allproducts";
 import { Button } from "@/components/ui/button";
-import  {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+    
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [unauthorized, setUnauthorized] = useState(false);

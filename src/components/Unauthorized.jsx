@@ -13,7 +13,7 @@ const Unauthorized = () => {
                     <p className="text-gray-600 mb-6">
                         You are not authorised to access this page.
                     </p>
-                    <Link to="/login" className="w-full">
+                    <Link to="/admin/login" className="w-full">
                         <Button variant="default" className="w-full">
                             <LogIn className="w-5 h-5" />
                             Go to Login

@@ -115,7 +115,7 @@ export default function FeaturedServices() {
     }, [index]);
 
     return (
-        <section className="bg-gray-100 py-16">
+        <section className="bg-linear-to-br from-gray-50 via-white to-gray-100 py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <h2 className="text-3xl font-bold text-center mb-2 text-gray-900">
                     Our Featured Services

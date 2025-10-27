@@ -8,7 +8,9 @@ import Loader from "@/components/Loader";
 import { toast } from "react-toastify";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
+
 export default function Login() {
+    
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);

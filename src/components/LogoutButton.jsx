@@ -5,12 +5,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LogoutButton = () => {
+    const API = import.meta.env.VITE_BACKEND_API_URL;
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
             const res = await axios.post(
-                "https://odisha-bizz-backend.onrender.com/api/auth/logout",
+                `${API}/logout`,
                 {},
                 { withCredentials: true }
             );

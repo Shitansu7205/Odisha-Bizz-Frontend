@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Unauthorized from "../components/Unauthorized";
 import LogoutButton from "@/components/LogoutButton";
-import Allproducts from "../components/Allproducts";
+// import Allproducts from "../components/Allproducts";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-    
+    const API = import.meta.env.VITE_BACKEND_API_URL;
+
+
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [unauthorized, setUnauthorized] = useState(false);
@@ -17,7 +19,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await axios.get("https://odisha-bizz-backend.onrender.com/api/auth/dashboard", {
+                const res = await axios.get(`${API}/dashboard`, {
                     withCredentials: true, // send JWT cookie
                 });
                 setUsers(res.data.users);
@@ -53,7 +55,7 @@ const Dashboard = () => {
                 ))}
             </ul>
 
-            <Allproducts />
+            {/* <Allproducts /> */}
         </>
     );
 };

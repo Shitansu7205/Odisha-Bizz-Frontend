@@ -48,7 +48,7 @@ const Navbar = () => {
                             asChild
                             className="bg-green-600 hover:bg-green-700 text-white rounded-full px-5"
                         >
-                            <Link to="/add-listing"><Plus className="w-5 h-5" /> Add Your One</Link>
+                            <Link to="/listing/create"><Plus className="w-5 h-5" /> Add Your One</Link>
                         </Button>
                         <Button
                             asChild
@@ -90,7 +90,7 @@ const Navbar = () => {
                                     asChild
                                     className="bg-green-600 hover:bg-green-700 text-white rounded-full"
                                 >
-                                    <Link to="/add-listing"><Plus className="w-5 h-5" />Add Your One</Link>
+                                    <Link to="/listing/create"><Plus className="w-5 h-5" />Add Your One</Link>
                                 </Button>
                                 <Button
                                     asChild

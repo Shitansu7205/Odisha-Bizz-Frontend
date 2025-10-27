@@ -1,200 +1,240 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const CreateListing = () => {
-    const [form, setForm] = useState({
+
+import { toast } from "react-toastify";
+
+
+const ProductListingForm = () => {
+    const API = import.meta.env.VITE_BACKEND_API_URL;
+    const [formData, setFormData] = useState({
         title: "",
-        category: "Travel",
         description: "",
-        contact: { phone: "", email: "", website: "" },
-        socialLinks: { facebook: "", instagram: "", twitter: "" },
-        location: { address: "", city: "", state: "", country: "", mapLink: "" },
-        status: "draft",
+        category: "",
+        email: "",
+        phone: "",
+        address: {
+            city: "",
+            state: "",
+            pincode: "",
+        },
+        socialMedia: {
+            facebook: "",
+            instagram: "",
+            twitter: "",
+            linkedin: "",
+        },
     });
+
+
+    const [loading, setLoading] = useState(false);
+
+
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name.includes(".")) {
             const [parent, child] = name.split(".");
-            setForm((prev) => ({ ...prev, [parent]: { ...prev[parent], [child]: value } }));
+            setFormData((prev) => ({
+                ...prev,
+                [parent]: {
+                    ...prev[parent],
+                    [child]: value,
+                },
+            }));
         } else {
-            setForm((prev) => ({ ...prev, [name]: value }));
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
         }
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const res = await axios.post(
-                "https://odisha-bizz-backend.onrender.com/api/auth/post-listings",
-                form,
+                `${API}/post-listings`,
+                formData,
                 { withCredentials: true }
             );
+
             toast.success("Listing created successfully!");
-            setForm({
+
+            setFormData({
                 title: "",
-                category: "Travel",
                 description: "",
-                contact: { phone: "", email: "", website: "" },
-                socialLinks: { facebook: "", instagram: "", twitter: "" },
-                location: { address: "", city: "", state: "", country: "", mapLink: "" },
-                status: "draft",
+                category: "",
+                email: "",
+                phone: "",
+                address: { city: "", state: "", pincode: "" },
+                socialMedia: { facebook: "", instagram: "", twitter: "", linkedin: "" },
             });
         } catch (err) {
-            console.error(err);
-            toast.error(err.response?.data?.message || "Something went wrong");
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                setUnauthorized(true); // mark as unauthorized
+            } else {
+                console.error(err);
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
+
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto p-4 border rounded">
-            <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                value={form.title}
-                onChange={handleChange}
-                required
-                className="w-full border px-3 py-2 rounded"
-            />
+        <div className="flex flex-col md:flex-row min-h-screen items-center justify-center bg-gray-50 px-6 py-10">
+            {/* Left Image */}
+            <div className="hidden md:flex md:w-1/2 justify-center">
+                <img
+                    src="https://illustrations.popsy.co/gray/product-launch.svg"
+                    alt="Listing Illustration"
+                    className="w-4/5 h-auto"
+                />
+            </div>
 
-            <select
-                name="category"
-                value={form.category}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            >
-                <option value="Travel">Travel</option>
-                <option value="Restaurant">Restaurant</option>
-                <option value="Hotel">Hotel</option>
-                <option value="Grocery">Grocery</option>
-                <option value="Other">Other</option>
-            </select>
+            {/* Right Form */}
+            <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg p-8">
+                <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+                    Create Your Listing
+                </h2>
 
-            <textarea
-                name="description"
-                placeholder="Description"
-                value={form.description}
-                onChange={handleChange}
-                required
-                className="w-full border px-3 py-2 rounded"
-            />
+                <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
 
-            {/* Contact */}
-            <input
-                type="text"
-                name="contact.phone"
-                placeholder="Phone"
-                value={form.contact.phone}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="email"
-                name="contact.email"
-                placeholder="Email"
-                value={form.contact.email}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="contact.website"
-                placeholder="Website"
-                value={form.contact.website}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
+                    <textarea
+                        name="description"
+                        placeholder="Description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
 
-            {/* Social Links */}
-            <input
-                type="text"
-                name="socialLinks.facebook"
-                placeholder="Facebook"
-                value={form.socialLinks.facebook}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="socialLinks.instagram"
-                placeholder="Instagram"
-                value={form.socialLinks.instagram}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="socialLinks.twitter"
-                placeholder="Twitter"
-                value={form.socialLinks.twitter}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
+                    <select
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    >
+                        <option value="">Select Category</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Grocery">Grocery</option>
+                        <option value="Other">Other</option>
+                    </select>
 
-            {/* Location */}
-            <input
-                type="text"
-                name="location.address"
-                placeholder="Address"
-                value={form.location.address}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="location.city"
-                placeholder="City"
-                value={form.location.city}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="location.state"
-                placeholder="State"
-                value={form.location.state}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="location.country"
-                placeholder="Country"
-                value={form.location.country}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
-            <input
-                type="text"
-                name="location.mapLink"
-                placeholder="Map Link"
-                value={form.location.mapLink}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
 
-            <select
-                name="status"
-                value={form.status}
-                onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
-            >
-                <option value="draft">Draft</option>
-                <option value="pending">Pending</option>
-                <option value="published">Published</option>
-                <option value="rejected">Rejected</option>
-            </select>
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
 
-            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Create Listing
-            </button>
-        </form>
+                    {/* Address Section */}
+                    <input
+                        type="text"
+                        name="address.city"
+                        placeholder="City"
+                        value={formData.address.city}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="address.state"
+                        placeholder="State"
+                        value={formData.address.state}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="address.pincode"
+                        placeholder="Pincode"
+                        value={formData.address.pincode}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+
+                    {/* Social Media */}
+                    <input
+                        type="text"
+                        name="socialMedia.facebook"
+                        placeholder="Facebook"
+                        value={formData.socialMedia.facebook}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="socialMedia.instagram"
+                        placeholder="Instagram"
+                        value={formData.socialMedia.instagram}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="socialMedia.twitter"
+                        placeholder="Twitter"
+                        value={formData.socialMedia.twitter}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="socialMedia.linkedin"
+                        placeholder="LinkedIn"
+                        value={formData.socialMedia.linkedin}
+                        onChange={handleChange}
+                        className="w-full border px-3 py-2 rounded"
+                    />
+
+                    <button
+                        type="submit"
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    >
+                        Create Listing
+                    </button>
+                </form>
+
+            </div>
+        </div>
     );
 };
 
-export default CreateListing;
+export default ProductListingForm;

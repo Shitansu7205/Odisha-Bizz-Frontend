@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import CreateListing from "./pages/CreateListing";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
+import Test from "./pages/Test";
+import Demo from "./pages/Demo";
 
 function AppWrapper() {
   const location = useLocation();
@@ -25,6 +27,8 @@ function AppWrapper() {
           <Route path="/admin/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/listing/create" element={<CreateListing />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -10,7 +10,7 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
 
 export default function Login() {
-    
+    const API = import.meta.env.VITE_BACKEND_API_URL;
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function Login() {
         try {
             setLoading(true);
             const response = await axios.post(
-                "https://odisha-bizz-backend.onrender.com/api/auth/login",
+                `${API}/login`,
                 form,
                 { withCredentials: true } // ✅ important to store JWT cookie
             );

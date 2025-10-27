@@ -12,6 +12,7 @@ import { Eye, EyeOff, UserPlus } from "lucide-react";
 
 
 export default function Signup() {
+    const API = import.meta.env.VITE_BACKEND_API_URL;
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: "",
@@ -77,7 +78,8 @@ export default function Signup() {
 
         try {
             setLoading(true);
-            const response = await axios.post('https://odisha-bizz-backend.onrender.com/api/auth/signup', form)
+            const response = await axios.post(`${API}/signup`, form)
+
 
             if (response.status === 201) {
                 toast.success("Signup successful!");

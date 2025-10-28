@@ -157,11 +157,18 @@ const ProductListingForm = () => {
                             required
                         >
                             <option value="">Select Category</option>
-                            <option value="Travel">Travel</option>
-                            <option value="Restaurant">Restaurant</option>
-                            <option value="Hotel">Hotel</option>
-                            <option value="Grocery">Grocery</option>
-                            <option value="Other">Other</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Finance & Banking">Finance & Banking</option>
+                            <option value="Retail & E-commerce">Retail & E-commerce</option>
+                            <option value="Hospitality & Tourism">Hospitality & Tourism</option>
+                            <option value="Manufacturing & Industrial">Manufacturing & Industrial</option>
+                            <option value="Energy & Utilities">Energy & Utilities</option>
+                            <option value="Transportation & Logistics">Transportation & Logistics</option>
+                            <option value="Media & Entertainment">Media & Entertainment</option>
+                            <option value="Agriculture & Food">Agriculture & Food</option>
+                            <option value="Jewellery">Jewellery</option>
+                            {/* <option value="Other">Other</option> */}
                         </select>
 
                         <input

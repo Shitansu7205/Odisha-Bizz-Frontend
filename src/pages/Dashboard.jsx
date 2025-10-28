@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Unauthorized from "../components/Unauthorized";
 import LogoutButton from "@/components/LogoutButton";
-// import Allproducts from "../components/Allproducts";
+import Allproducts from "../components/Allproducts";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -44,18 +44,12 @@ const Dashboard = () => {
     return (
         <>
             <h1>Dashboard</h1>
-            <h3>All Users</h3>
+         
             <LogoutButton />
             <Button onClick={() => navigate("/listing/create")}>List yours properties</Button>
-            <ul>
-                {users.map((user) => (
-                    <li key={user._id}>
-                        {user.name} — {user.email}
-                    </li>
-                ))}
-            </ul>
 
-            {/* <Allproducts /> */}
+
+            <Allproducts />
         </>
     );
 };

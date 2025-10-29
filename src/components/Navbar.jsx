@@ -84,12 +84,12 @@ const Navbar = () => {
                 <div className="flex items-center gap-2">
                     <Link to="/" className="flex items-center gap-2">
                         <img
-                            src="https://ctsdemo.com/odishabiz-website/assets/images/odishabiz-logo.png"
+                            src="/images/logo.png"
                             alt="Odisha Bizz"
                             className="h-10 object-contain hidden sm:block"
                         />
                         <img
-                            src="https://ctsdemo.com/odishabiz-website/assets/images/odishabiz-logo.png"
+                            src="/images/logo.png"
                             alt="Odisha Bizz"
                             className="h-10 object-contain sm:hidden"
                         />

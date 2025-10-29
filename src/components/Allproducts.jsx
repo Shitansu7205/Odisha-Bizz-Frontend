@@ -717,6 +717,22 @@ const ListingsSection = () => {
                                             placeholder="LinkedIn URL"
                                         />
                                     </div>
+                                    <div className="flex flex-col">
+                                        <Label htmlFor="website" className="mb-1">Website</Label>
+                                        <Input
+                                            id="website"
+                                            name="website"
+                                            value={selectedListing.socialMedia?.website || ""}
+                                            onChange={(e) =>
+                                                setSelectedListing({
+                                                    ...selectedListing,
+                                                    socialMedia: { ...selectedListing.socialMedia, website: e.target.value },
+                                                })
+                                            }
+                                            placeholder="Website URL"
+                                        />
+                                    </div>
+
                                 </div>
 
                                 <SheetFooter className="flex justify-end gap-3 mt-4">

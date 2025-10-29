@@ -23,6 +23,7 @@ const ProductListingForm = () => {
             instagram: "",
             twitter: "",
             linkedin: "",
+            website: "",
         },
     });
 
@@ -95,7 +96,7 @@ const ProductListingForm = () => {
                 email: "",
                 phone: "",
                 address: { city: "", state: "", pincode: "" },
-                socialMedia: { facebook: "", instagram: "", twitter: "", linkedin: "" },
+                socialMedia: { facebook: "", instagram: "", twitter: "", linkedin: "", website: "" },
             });
         } catch (err) {
             if (err.response?.status === 401 || err.response?.status === 403) {
@@ -253,6 +254,15 @@ const ProductListingForm = () => {
                             onChange={handleChange}
                             className="w-full border px-3 py-2 rounded"
                         />
+                        <input
+                            type="text"
+                            name="socialMedia.website"
+                            placeholder="Website"
+                            value={formData.socialMedia.website}
+                            onChange={handleChange}
+                            className="w-full border px-3 py-2 rounded"
+                        />
+
 
                         <button
                             type="submit"

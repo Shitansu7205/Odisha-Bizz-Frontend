@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Plus, Eye } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
     return (
@@ -128,9 +128,9 @@ const HeroSection = () => {
                         asChild
                         className="flex items-center gap-2 bg-white text-black font-semibold rounded-full px-6 py-3 shadow-md hover:bg-gray-100 hover:scale-105 transition-transform duration-300"
                     >
-                        <a href="#add">
+                        <Link to="/listing/create">
                             <Plus size={20} /> Add Your Own
-                        </a>
+                        </Link>
                     </Button>
 
                     {/* Explore Properties Button */}

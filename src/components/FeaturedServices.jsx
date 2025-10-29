@@ -7,13 +7,31 @@ import {
     Banknote,
     ShoppingBag,
     Plane,
+    Factory,
+    Zap,
+    Truck,
+    Clapperboard,
+    Leaf,
+    Gem,
+    Building2,
+    BookOpen,
+    Cpu,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
-const services = [
+export const services = [
+    {
+        title: "Real Estate",
+        description: "Building dreams, one property at a time.",
+        author: "Lorem Ipsum",
+        icon: <Building2 className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/real-estate",
+    },
     {
         title: "Healthcare",
         description: "Caring for your health, every step of the way.",
@@ -47,10 +65,58 @@ const services = [
         link: "/tourism",
     },
     {
+        title: "Manufacturing & Industrial",
+        description: "Powering progress through innovation and efficiency.",
+        author: "Lorem Ipsum",
+        icon: <Factory className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/manufacturing",
+    },
+    {
+        title: "Energy & Utilities",
+        description: "Sustaining the future with clean and smart energy.",
+        author: "Lorem Ipsum",
+        icon: <Zap className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/energy",
+    },
+    {
+        title: "Transportation & Logistics",
+        description: "Delivering efficiency across every mile.",
+        author: "Lorem Ipsum",
+        icon: <Truck className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/transportation",
+    },
+    {
+        title: "Media & Entertainment",
+        description: "Inspiring creativity and connecting people worldwide.",
+        author: "Lorem Ipsum",
+        icon: <Clapperboard className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/media",
+    },
+    {
+        title: "Agriculture & Food",
+        description: "Cultivating growth from farm to table.",
+        author: "Lorem Ipsum",
+        icon: <Leaf className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/agriculture",
+    },
+    {
+        title: "Jewellery",
+        description: "Crafting elegance that defines your style.",
+        author: "Lorem Ipsum",
+        icon: <Gem className="w-5 h-5 text-green-600" />,
+        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        link: "/jewellery",
+    },
+    {
         title: "Education & Learning",
         description: "Empowering minds through innovative education.",
         author: "Lorem Ipsum",
-        icon: <HeartPulse className="w-5 h-5 text-green-600" />,
+        icon: <BookOpen className="w-5 h-5 text-green-600" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
         link: "/education",
     },
@@ -58,7 +124,7 @@ const services = [
         title: "Technology & Innovation",
         description: "Innovating the future, one idea at a time.",
         author: "Lorem Ipsum",
-        icon: <Banknote className="w-5 h-5 text-green-600" />,
+        icon: <Cpu className="w-5 h-5 text-green-600" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
         link: "/technology",
     },
@@ -118,7 +184,7 @@ export default function FeaturedServices() {
         <section className="bg-linear-to-br from-gray-50 via-white to-gray-100 py-16">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <h2 className="text-3xl font-bold text-center mb-2 text-gray-900">
-                    Our Featured Services
+                    Our Featured Services.
                 </h2>
                 <p className="text-center text-gray-600 mb-8">
                     Explore innovative solutions designed to empower every sector.
@@ -164,12 +230,18 @@ export default function FeaturedServices() {
                                             </h3>
                                             <p className="text-gray-600 text-sm">{service.description}</p>
                                         </div>
-                                        <Button
+                                        {/* <Button
                                             onClick={() => navigate(service.link)}
                                             className="bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-2 mt-4"
                                         >
                                             Learn More
-                                        </Button>
+                                        </Button> */}
+                                        <Link
+                                            to={`/category/${service.title}`}
+                                            className="bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-1.5 mt-4 text-center text-sm font-bold"
+                                        >
+                                            Learn More
+                                        </Link>
                                     </CardContent>
                                 </Card>
                             ))}

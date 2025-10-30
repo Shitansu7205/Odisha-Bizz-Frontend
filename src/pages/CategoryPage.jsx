@@ -291,7 +291,7 @@ const CategoryPage = () => {
                                 href={`#${b._id}`}
                                 className="block group"
                             >
-                                <div className="flex items-center gap-4 p-1 rounded-2xl bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 hover:bg-gradient-to-r hover:from-white/90 hover:to-blue-50">
+                                <div className="flex items-center gap-4 p-1 rounded-2xl bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 hover:bg-linear-to-r hover:from-white/90 hover:to-blue-50">
 
                                     {/* Image */}
                                     <div className="relative w-18 h-18 shrink-0">

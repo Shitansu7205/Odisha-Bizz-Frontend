@@ -13,6 +13,9 @@ import Test from "./pages/Test";
 import Demo from "./pages/Demo";
 import CategoryPage from "./pages/CategoryPage";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
+import Footer from "./components/Footer";
 
 
 function AppWrapper() {
@@ -26,6 +29,8 @@ function AppWrapper() {
       <main className="grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/admin/signup" element={<Signup />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -37,6 +42,7 @@ function AppWrapper() {
         </Routes>
         <ScrollToTopButton />
       </main>
+      <Footer />
     </>
   );
 }

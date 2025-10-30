@@ -1,25 +1,30 @@
 import React from "react";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+
+import { FaFacebookF, FaInstagram, FaXTwitter, FaLinkedin, FaGlobe, FaArrowRight } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <footer className="w-full bg-[#0b2c71] text-white relative">
       {/* Top green subscription bar */}
       <div className="bg-green-600 text-white py-3 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <span>Subscribe and be notified about new locations</span>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+          <span className="text-center md:text-left font-medium">
+            Subscribe and be notified about new locations
+          </span>
+
           <div className="flex items-center gap-2">
             <input
               type="email"
               placeholder="Your Email"
-              className="px-4 py-2 rounded-full text-black outline-none"
+              className="px-4 py-2 rounded-full bg-white text-green-600 placeholder:text-green-500 border border-white focus:outline-none focus:ring-2 focus:ring-white w-64 md:w-72"
             />
-            <button className="bg-white text-green-600 rounded-full px-4 py-2 hover:bg-gray-200 transition">
+            <button className="bg-white text-green-600 rounded-full px-4 py-2 hover:bg-gray-100 transition font-bold">
               &rarr;
             </button>
           </div>
         </div>
       </div>
+
 
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid md:grid-cols-4 gap-8">
@@ -91,16 +96,16 @@ const Footer = () => {
         </span>
         <div className="flex gap-4 mt-2 md:mt-0">
           <a href="#" className="hover:text-green-600">
-            <Facebook className="w-5 h-5" />
+            <FaFacebookF className="w-5 h-5" />
           </a>
           <a href="#" className="hover:text-green-600">
-            <Twitter className="w-5 h-5" />
+            <FaXTwitter className="w-5 h-5" />
           </a>
           <a href="#" className="hover:text-green-600">
-            <Instagram className="w-5 h-5" />
+            <FaInstagram className="w-5 h-5" />
           </a>
           <a href="#" className="hover:text-green-600">
-            <Linkedin className="w-5 h-5" />
+            <FaLinkedin className="w-5 h-5" />
           </a>
         </div>
       </div>

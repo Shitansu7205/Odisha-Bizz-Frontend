@@ -140,7 +140,7 @@ const Navbar = () => {
 
                                     <DropdownMenuItem asChild>
                                         <Link
-                                            to="/dashboard"
+                                            to="/admin/dashboard"
                                             className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
                                         >
                                             <User className="w-4 h-4" /> My Dashboard
@@ -232,7 +232,7 @@ const Navbar = () => {
 
                                             <DropdownMenuItem asChild>
                                                 <Link
-                                                    to="/dashboard"
+                                                    to="/admin/dashboard"
                                                     className="flex items-center gap-2 text-gray-700 hover:text-[#b6985a]"
                                                 >
                                                     <User className="w-4 h-4" /> My Dashboard

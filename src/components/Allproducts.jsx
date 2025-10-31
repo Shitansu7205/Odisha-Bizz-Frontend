@@ -182,12 +182,12 @@ const ListingsSection = () => {
             {loading && <Loader />}
 
 
-            <section className="py-10 px-4 sm:px-8 bg-[#faf8f3] min-h-screen">
+            <section className=" px-4 sm:px-8  min-h-screen">
                 <h2 className="text-2xl font-bold mb-6 text-center text-[#b6985a]">
                     🏨 Our Listings
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:px-26">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
                     {listings.length === 0 ? (
                         <p className="text-center text-gray-500 col-span-full">
                             No listings found.

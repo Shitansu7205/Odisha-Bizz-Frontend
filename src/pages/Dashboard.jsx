@@ -43,11 +43,6 @@ const Dashboard = () => {
 
     return (
         <>
-            <h1>Dashboard</h1>
-         
-            <LogoutButton />
-            <Button onClick={() => navigate("/listing/create")}>List yours properties</Button>
-
 
             <Allproducts />
         </>

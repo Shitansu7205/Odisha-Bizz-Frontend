@@ -38,7 +38,7 @@ export default function Login() {
 
             if (response.status === 200) {
                 toast.success("Login successful!");
-                navigate("/dashboard"); // Redirect to protected route
+                navigate("/admin/dashboard"); // Redirect to protected route
             }
 
         } catch (error) {

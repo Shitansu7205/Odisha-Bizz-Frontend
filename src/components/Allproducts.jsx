@@ -87,7 +87,6 @@ const ListingsSection = () => {
         setLoading(true);
 
         try {
-            // 🧩 Extract only the fields that can be updated
             const {
                 _id,
                 title,
@@ -98,25 +97,39 @@ const ListingsSection = () => {
                 address,
                 socialMedia,
                 status,
+                image, // new file if uploaded
             } = selectedListing;
 
-            const payload = {
-                title,
-                description,
-                category,
-                email,
-                phone,
-                address,
-                socialMedia,
-                status,
-            };
+            const formData = new FormData();
 
-            const response = await axios.put(`${API}/update-listings/${_id}`, payload, { withCredentials: true });
+            // Append fields
+            formData.append("title", title);
+            formData.append("description", description);
+            formData.append("category", category);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("status", status);
+            formData.append("address", JSON.stringify(address));
+            formData.append("socialMedia", JSON.stringify(socialMedia));
+
+            // Only append if a new image is selected
+            if (image) {
+                formData.append("image", image);
+            }
+
+            const response = await axios.put(
+                `${API}/update-listings/${_id}`,
+                formData,
+                {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    withCredentials: true,
+                }
+            );
 
             if (response.status === 200) {
                 toast.success("Listing updated successfully!");
                 setOpen(false);
-                fetchData(); // Refresh the list
+                fetchData(); // Refresh listings
             } else {
                 toast.error(response.data?.message || "Failed to update listing");
             }
@@ -124,20 +137,17 @@ const ListingsSection = () => {
             console.error("❌ Error updating listing:", error);
 
             if (error.response) {
-                // Server responded but with a non-2xx code
-                const { status, data } = error.response;
-                toast.error(data?.message || `Server Error (${status})`);
+                toast.error(error.response.data?.message || `Server Error (${error.response.status})`);
             } else if (error.request) {
-                // No response from server
                 toast.error("No response from server. Check your connection.");
             } else {
-                // Other errors
                 toast.error("Something went wrong. Please try again.");
             }
         } finally {
             setLoading(false);
         }
     };
+
 
 
     // ✅ Handle field changes
@@ -184,158 +194,14 @@ const ListingsSection = () => {
                         </p>
                     ) : (
                         listings.map((listing, index) => (
-                            //                         <Card
-                            //                             key={listing._id}
-                            //                             className="hover:shadow-xl transition-all border border-gray-200 rounded-2xl overflow-hidden bg-white"
-                            //                         >
-                            //                             {/* ✅ Image Header */}
-                            //                             <div className="relative">
-                            //                                 <img
-                            //                                     src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60"
-                            //                                     alt="Listing"
-                            //                                     className="w-full h-44 object-cover"
-                            //                                 />
-                            //                                 <div
-                            //                                     className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold
-                            // ${listing.status?.toLowerCase() === "active"
-                            //                                             ? "bg-green-100 text-green-700 border border-green-400"
-                            //                                             : listing.status?.toLowerCase() === "pending"
-                            //                                                 ? "bg-yellow-100 text-yellow-700 border border-yellow-400"
-                            //                                                 : listing.status?.toLowerCase() === "inactive"
-                            //                                                     ? "bg-red-100 text-red-700 border border-red-400"
-                            //                                                     : "bg-gray-100 text-gray-700 border border-gray-400"
-                            //                                         }`}
-                            //                                 >
-                            //                                     {listing.status}
-                            //                                 </div>
 
-                            //                             </div>
-
-                            //                             {/* ✅ Content */}
-                            //                             <CardHeader className="space-y-1 pb-2">
-                            //                                 <div className="flex items-center justify-between">
-                            //                                     <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            //                                         <Building2 size={18} className="text-blue-600" />
-                            //                                         {listing.title}
-                            //                                     </h3>
-                            //                                 </div>
-                            //                                 <p className="text-sm text-gray-500">{listing.category}</p>
-                            //                             </CardHeader>
-
-                            //                             <CardContent className="text-sm text-gray-700 space-y-2">
-                            //                                 <p className="line-clamp-2">{listing.description}</p>
-
-                            //                                 <div className="flex items-center gap-2 text-gray-600">
-                            //                                     <MapPin size={16} className="text-blue-600" />
-                            //                                     <span>
-                            //                                         {listing.address.city}, {listing.address.state} -{" "}
-                            //                                         {listing.address.pincode}
-                            //                                     </span>
-                            //                                 </div>
-
-                            //                                 <div className="flex items-center gap-2">
-                            //                                     <Phone size={16} className="text-green-600" />
-                            //                                     <span>{listing.phone}</span>
-                            //                                 </div>
-
-                            //                                 <div className="flex items-center gap-2">
-                            //                                     <Mail size={16} className="text-blue-600" />
-                            //                                     <span>{listing.email}</span>
-                            //                                 </div>
-                            //                             </CardContent>
-
-                            //                             {/* ✅ Footer with Socials */}
-                            //                             <CardFooter className="flex justify-between items-center pt-4 border-t border-gray-100">
-                            //                                 <div className="flex gap-3 text-gray-500">
-                            //                                     <a
-                            //                                         href={listing.socialMedia?.facebook}
-                            //                                         target="_blank"
-                            //                                         rel="noreferrer"
-                            //                                         className="hover:text-blue-600"
-                            //                                     >
-                            //                                         <Facebook size={18} />
-                            //                                     </a>
-                            //                                     <a
-                            //                                         href={listing.socialMedia?.instagram}
-                            //                                         target="_blank"
-                            //                                         rel="noreferrer"
-                            //                                         className="hover:text-pink-600"
-                            //                                     >
-                            //                                         <Instagram size={18} />
-                            //                                     </a>
-                            //                                     <a
-                            //                                         href={listing.socialMedia?.twitter}
-                            //                                         target="_blank"
-                            //                                         rel="noreferrer"
-                            //                                         className="hover:text-sky-500"
-                            //                                     >
-                            //                                         <Twitter size={18} />
-                            //                                     </a>
-                            //                                     <a
-                            //                                         href={listing.socialMedia?.website}
-                            //                                         target="_blank"
-                            //                                         rel="noreferrer"
-                            //                                         className="hover:text-green-600"
-                            //                                     >
-                            //                                         <Globe size={18} />
-                            //                                     </a>
-                            //                                 </div>
-
-                            //                                 {/* ✅ Buttons */}
-                            //                                 <div className="flex gap-2">
-                            //                                     <Button
-                            //                                         onClick={() => {
-                            //                                             setSelectedListing(listing);
-                            //                                             setOpen(true);
-                            //                                         }}
-                            //                                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4"
-                            //                                     >
-                            //                                         <Pencil size={16} />
-                            //                                         Update
-                            //                                     </Button>
-
-                            //                                     <AlertDialog>
-                            //                                         <AlertDialogTrigger asChild>
-                            //                                             <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4">
-                            //                                                 <Trash2 size={16} />
-                            //                                                 Delete
-                            //                                             </Button>
-                            //                                         </AlertDialogTrigger>
-
-                            //                                         <AlertDialogContent className="bg-white rounded-2xl shadow-lg">
-                            //                                             <AlertDialogHeader>
-                            //                                                 <AlertDialogTitle className="text-green-700 text-lg">
-                            //                                                     Confirm Deletion
-                            //                                                 </AlertDialogTitle>
-                            //                                                 <AlertDialogDescription className="text-gray-600">
-                            //                                                     Are you sure you want to delete this listing? This action
-                            //                                                     cannot be undone.
-                            //                                                 </AlertDialogDescription>
-                            //                                             </AlertDialogHeader>
-
-                            //                                             <AlertDialogFooter className="flex justify-end gap-3">
-                            //                                                 <AlertDialogCancel className="border border-gray-300 text-gray-700 rounded-md">
-                            //                                                     Cancel
-                            //                                                 </AlertDialogCancel>
-                            //                                                 <AlertDialogAction
-                            //                                                     onClick={() => handleDelete(listing._id)}
-                            //                                                     className="bg-green-600 hover:bg-green-700 text-white rounded-md"
-                            //                                                 >
-                            //                                                     Yes, Delete
-                            //                                                 </AlertDialogAction>
-                            //                                             </AlertDialogFooter>
-                            //                                         </AlertDialogContent>
-                            //                                     </AlertDialog>
-                            //                                 </div>
-                            //                             </CardFooter>
-                            //                         </Card>
                             <div className="relative max-w-md mx-auto rounded-2xl  shadow-lg transition-transform hover:scale-[1.02] " key={index}>
                                 <div className="bg-white rounded-2xl overflow-hidden">
                                     {/* Image Section */}
                                     <div className="relative h-52 w-full">
                                         <img
                                             src={
-                                                listing.image ||
+                                                listing.imageUrl ||
                                                 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60'
                                             }
                                             alt={listing.title}
@@ -732,6 +598,38 @@ const ListingsSection = () => {
                                             placeholder="Website URL"
                                         />
                                     </div>
+                                    {/* Image Upload */}
+                                    <div className="flex flex-col">
+                                        <Label htmlFor="image" className="mb-1">Upload Image</Label>
+
+                                        {/* Preview existing or newly selected image */}
+                                        {selectedListing.imageUrl && (
+                                            <img
+                                                src={selectedListing.imageUrl}
+                                                alt="Current"
+                                                className="w-32 h-32 rounded-md object-cover mb-2 border"
+                                            />
+                                        )}
+
+                                        {/* File input for new image */}
+                                        <Input
+                                            id="image"
+                                            name="image"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    setSelectedListing({
+                                                        ...selectedListing,
+                                                        image: file,
+                                                        imageUrl: URL.createObjectURL(file), // temporary preview
+                                                    });
+                                                }
+                                            }}
+                                        />
+                                    </div>
+
 
                                 </div>
 

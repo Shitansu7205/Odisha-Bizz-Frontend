@@ -118,9 +118,13 @@ const CategoryPage = () => {
                                     className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-transform duration-300 hover:-translate-y-1"
                                 >
                                     <img
-                                        src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
-                                        alt={product.title}
-                                        className="w-full h-76 object-cover"
+                                        src={
+                                            product.imageUrl
+                                                ? product.imageUrl
+                                                : "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                                        }
+                                        alt={product.title || "Product image"}
+                                        className="w-full h-76 object-cover rounded-lg"
                                     />
 
                                     <div className="p-6 space-y-5">
@@ -296,7 +300,11 @@ const CategoryPage = () => {
                                     {/* Image */}
                                     <div className="relative w-18 h-18 shrink-0">
                                         <img
-                                            src={b.image || "https://ctsdemo.com/odishabiz-website/assets/images/Hospitality_Tourism.jpg"}
+                                            src={
+                                                b.imageUrl
+                                                    ? b.imageUrl
+                                                    : "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                                            }
                                             alt={b.title}
                                             className="w-18 h-18 object-cover rounded-full border-2 border-blue-100"
                                         />

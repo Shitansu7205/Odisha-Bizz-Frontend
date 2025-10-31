@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 const ProductListingForm = () => {
     const API = import.meta.env.VITE_BACKEND_API_URL;
+    const [image, setImage] = useState(null);
+
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -81,11 +83,24 @@ const ProductListingForm = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post(
-                `${API}/post-listings`,
-                formData,
-                { withCredentials: true }
-            );
+            // Create FormData object
+            const data = new FormData();
+            data.append("title", formData.title);
+            data.append("description", formData.description);
+            data.append("category", formData.category);
+            data.append("email", formData.email);
+            data.append("phone", formData.phone);
+            data.append("address", JSON.stringify(formData.address)); // Convert nested objects
+            data.append("socialMedia", JSON.stringify(formData.socialMedia));
+            if (image) data.append("image", image); // 👈 image file
+
+            // Send POST request
+            const res = await axios.post(`${API}/post-listings`, data, {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
 
             toast.success("Listing created successfully!");
 
@@ -98,12 +113,10 @@ const ProductListingForm = () => {
                 address: { city: "", state: "", pincode: "" },
                 socialMedia: { facebook: "", instagram: "", twitter: "", linkedin: "", website: "" },
             });
+            setImage(null);
         } catch (err) {
-            if (err.response?.status === 401 || err.response?.status === 403) {
-                setUnauthorized(true); // mark as unauthorized
-            } else {
-                console.error(err);
-            }
+            console.error("Error creating listing:", err);
+            toast.error("Failed to create listing!");
         } finally {
             setLoading(false);
         }
@@ -140,6 +153,23 @@ const ProductListingForm = () => {
                             className="w-full border px-3 py-2 rounded"
                             required
                         />
+                        <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={(e) => setImage(e.target.files[0])}
+                            className="w-full border px-3 py-2 rounded"
+                        />
+                        {image && (
+                            <div className="mt-2">
+                                <img
+                                    src={URL.createObjectURL(image)}
+                                    alt="Preview"
+                                    className="w-32 h-32 object-cover rounded border"
+                                />
+                            </div>
+                        )}
+
 
                         <textarea
                             name="description"

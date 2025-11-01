@@ -19,7 +19,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="text-2xl font-bold mb-6 text-center py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg mx-3 mt-4 shadow-md"
+        className="text-2xl font-bold mb-6 text-center py-4 bg-linear-to-r from-green-600 to-blue-600 text-white rounded-lg mx-3 mt-4 shadow-md"
       >
         BizPanel
       </motion.div>
@@ -34,17 +34,15 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
             <li key={link.name}>
               <button
                 onClick={() => setActiveTab(link.name)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-md"
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
+                    ? "bg-linear-to-r from-green-600 to-blue-600 text-white shadow-md"
                     : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <span
-                    className={`transition group-hover:scale-110 ${
-                      isActive ? "text-white" : "text-gray-500"
-                    }`}
+                    className={`transition group-hover:scale-110 ${isActive ? "text-white" : "text-gray-500"
+                      }`}
                   >
                     {link.icon}
                   </span>
@@ -54,11 +52,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                 {link.badge && (
                   <Badge
                     variant="secondary"
-                    className={`text-xs ${
-                      isActive
+                    className={`text-xs ${isActive
                         ? "bg-white text-blue-600"
                         : "bg-blue-50 text-blue-600 border-blue-200"
-                    }`}
+                      }`}
                   >
                     {link.badge}
                   </Badge>

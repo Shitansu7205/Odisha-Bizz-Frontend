@@ -19,53 +19,102 @@ import {
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import Loader from "@/components/Loader";
+import useListingStore from "@/store/useListingStore";
+import { useMemo } from "react";
 
 
 const CategoryPage = () => {
-    const API = import.meta.env.VITE_BACKEND_API_URL;
     const { categoryName } = useParams();
-    const [products, setProducts] = useState([]);
-    const [latestProducts, setLatestProducts] = useState([]);
-    const [Loading, setLoading] = useState(false);
+    // const API = import.meta.env.VITE_BACKEND_API_URL;
+    // const [products, setProducts] = useState([]);
+    // const [latestProducts, setLatestProducts] = useState([]);
+    // const [Loading, setLoading] = useState(false);
 
+    const { listings, fetchAllListings, loading,error } = useListingStore();
+
+    // Fetch all listings once (only if not already loaded)
     useEffect(() => {
-        const fetchCategoryProducts = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch(
-                    `${API}/get-category-listings/${encodeURIComponent(categoryName)}`
-                );
-                const data = await response.json();
+        const loadData = async () => {
+            await fetchAllListings();
 
-                // ✅ Ensure only arrays are set
-                if (Array.isArray(data)) {
-
-                    const sorted = [...data].sort(
-                        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    );
-                    setProducts(data);
-                    setLatestProducts(sorted.slice(0, 5));
-                    setLoading(false);
-                    toast.success("Data fetched successfully!");
-                } else {
-                    setProducts([]); // fallback to empty array
-                    setLatestProducts([]);
-                }
-            } catch (err) {
-                setProducts([]);
-                setLatestProducts([]);
-                toast.error("Error fetching category data. Please try again.");
-            } finally {
-                setLoading(false);
-            }
+            // ✅ Toast only after fetching
+            if (error) toast.error("Failed to load listings. Please try again.");
+            else if (!loading && listings.length > 0)
+                toast.success("Listings loaded successfully!");
         };
 
-        fetchCategoryProducts();
-    }, [categoryName]);
+        loadData();
+    }, [fetchAllListings, error]);
+
+    // ✅ Filter listings locally by category (case-insensitive)
+    const filteredListings = useMemo(() => {
+        if (!categoryName) return listings;
+
+        return listings.filter((item) => {
+            const categoryValue =
+                item.categoryName?.toLowerCase?.() ||
+                item.category?.toLowerCase?.() ||
+                item.category?.name?.toLowerCase?.() ||
+                "";
+
+            return categoryValue === categoryName.toLowerCase();
+        });
+    }, [categoryName, listings]);
+
+
+
+    const latestListings = useMemo(() => {
+        return [...filteredListings]
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 5);
+    }, [filteredListings]);
+
+
+
+
+
+    // console.log("Filtered Listings:", categoryName);
+    // console.log("All Listings:", listings);
+
+
+    // useEffect(() => {
+    //     const fetchCategoryProducts = async () => {
+    //         setLoading(true);
+    //         try {
+    //             const response = await fetch(
+    //                 `${API}/get-category-listings/${encodeURIComponent(categoryName)}`
+    //             );
+    //             const data = await response.json();
+
+    //             // ✅ Ensure only arrays are set
+    //             if (Array.isArray(data)) {
+
+    //                 const sorted = [...data].sort(
+    //                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    //                 );
+    //                 setProducts(data);
+    //                 setLatestProducts(sorted.slice(0, 5));
+    //                 setLoading(false);
+    //                 toast.success("Data fetched successfully!");
+    //             } else {
+    //                 setProducts([]); // fallback to empty array
+    //                 setLatestProducts([]);
+    //             }
+    //         } catch (err) {
+    //             setProducts([]);
+    //             setLatestProducts([]);
+    //             toast.error("Error fetching category data. Please try again.");
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchCategoryProducts();
+    // }, [categoryName]);
 
     return (
         <>
-            {Loading && <Loader />}
+            {loading && <Loader />}
             {/* Hero Section */}
             <section className="relative w-full h-[220px] sm:h-[280px] lg:h-[340px] flex items-center justify-center overflow-hidden">
                 {/* Background Image */}
@@ -97,7 +146,7 @@ const CategoryPage = () => {
                 {/* Left - Blogs */}
                 <div className="lg:w-2/3 space-y-12">
                     {
-                        products.length === 0 ? (
+                        filteredListings.length === 0 ? (
                             <div className="flex flex-col items-center justify-center py-16 text-center bg-gray-50 rounded-lg border border-gray-200">
                                 <img
                                     src="/images/data-not-found.png"
@@ -111,7 +160,7 @@ const CategoryPage = () => {
                             </div>
                         ) : (
 
-                            products.map((product, idx) => (
+                            filteredListings.map((product, idx) => (
                                 <div
                                     key={idx}
                                     id={product._id}
@@ -289,7 +338,7 @@ const CategoryPage = () => {
                     <h3 className="text-2xl font-semibold text-gray-900 mb-6">Latest Listings</h3>
                     <div className="space-y-5">
 
-                        {latestProducts.map((b, idx) => (
+                        {latestListings.map((b, idx) => (
                             <a
                                 key={idx}
                                 href={`#${b._id}`}

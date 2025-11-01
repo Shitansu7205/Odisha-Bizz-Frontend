@@ -17,6 +17,7 @@ import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import MainDashboard from "./pages/MainDashboard";
+import Category from "./pages/Category";
 
 
 function AppWrapper() {
@@ -34,6 +35,7 @@ function AppWrapper() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path='/categories' element={<Category />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/admin/signup" element={<Signup />} />
           <Route path="/admin/login" element={<Login />} />
@@ -41,7 +43,7 @@ function AppWrapper() {
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/listing/create" element={<CreateListing />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />
-          <Route path="/test" element={<Test />} />
+          <Route path="/test/:category" element={<Test />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

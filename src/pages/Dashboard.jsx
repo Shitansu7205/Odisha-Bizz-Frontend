@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Unauthorized from "../components/Unauthorized";
-import LogoutButton from "@/components/LogoutButton";
 import Allproducts from "../components/Allproducts";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {

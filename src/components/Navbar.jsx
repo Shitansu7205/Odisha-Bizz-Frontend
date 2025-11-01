@@ -7,6 +7,7 @@ import {
     LogOut,
     KeyRound,
     ChevronDown,
+    MessageCircle,
 } from "lucide-react";
 import {
     Sheet,
@@ -24,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import useAuthStore from "@/store/useAuthStore";
 
 
 
@@ -35,27 +36,31 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
     const API = import.meta.env.VITE_BACKEND_API_URL;
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isAuthenticated, checkAuth } = useAuthStore();
     const navigate = useNavigate();
 
-    
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const res = await axios.get(`${API}/check-auth`, { withCredentials: true });
-                if (res.status === 200) {
-                    setIsAuthenticated(true);
-                }
-            } catch (error) {
-                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-                    setIsAuthenticated(false);
-                } else {
-                    console.error("Auth check failed:", error);
-                }
-            }
-        };
         checkAuth();
     }, []);
+
+
+    // useEffect(() => {
+    //     const checkAuth = async () => {
+    //         try {
+    //             const res = await axios.get(`${API}/check-auth`, { withCredentials: true });
+    //             if (res.status === 200) {
+    //                 setIsAuthenticated(true);
+    //             }
+    //         } catch (error) {
+    //             if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+    //                 setIsAuthenticated(false);
+    //             } else {
+    //                 console.error("Auth check failed:", error);
+    //             }
+    //         }
+    //     };
+    //     checkAuth();
+    // }, []);
 
 
     const handleLogout = async () => {
@@ -68,6 +73,7 @@ const Navbar = () => {
 
             if (res.status === 200) {
                 toast.success("Logged out successfully!"); // show success toast
+                window.location.reload();
                 navigate("/"); // redirect after logout
             } else {
                 toast.error("Logout failed. Please try again."); // fallback
@@ -107,19 +113,31 @@ const Navbar = () => {
                     <Link to="/categories" className="text-gray-900 font-medium hover:text-green-700 transition">
                         Categories
                     </Link>
-                    <Link to="/contact" className="text-gray-900 font-medium hover:text-green-700 transition">
+                    {/* <Link to="/contact" className="text-gray-900 font-medium hover:text-green-700 transition">
                         Contact
-                    </Link>
+                    </Link> */}
+                    <Button
+                        asChild
+                        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-2 font-medium shadow-md transition-all"
+                    >
+                        <Link to="/contact">
+                            <MessageCircle className="w-5 h-5" /> Get In Touch
+                        </Link>
+                    </Button>
 
                     <div className="flex items-center gap-4">
-                        <Button
-                            asChild
-                            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-2 font-medium shadow-md transition-all"
-                        >
-                            <Link to="/listing/create">
-                                <Plus className="w-5 h-5" /> Add Your One
-                            </Link>
-                        </Button>
+                        {isAuthenticated ? (
+                            <Button
+                                asChild
+                                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-2 font-medium shadow-md transition-all"
+                            >
+                                <Link to="/listing/create">
+                                    <Plus className="w-5 h-5" /> Add Your One
+                                </Link>
+                            </Button>
+                        ) : (
+                            null
+                        )}
 
                         {/* Authenticated / Non-Authenticated Buttons */}
                         {isAuthenticated ? (
@@ -167,14 +185,7 @@ const Navbar = () => {
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (
-                            <Button
-                                asChild
-                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 py-2 font-medium shadow-md transition-all"
-                            >
-                                <Link to="/admin/login">
-                                    <LogIn className="w-5 h-5" /> Sign In
-                                </Link>
-                            </Button>
+                            null
                         )}
 
                     </div>

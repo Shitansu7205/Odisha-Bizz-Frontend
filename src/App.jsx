@@ -18,16 +18,20 @@ import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import MainDashboard from "./pages/MainDashboard";
 import Category from "./pages/Category";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 
 function AppWrapper() {
   const location = useLocation();
-  const hideNavbarPaths = ["/admin/login", "/admin/signup", "/admin/dashboard"]; // Add any path where navbar should be hidden
-  const showNavbar = !hideNavbarPaths.includes(location.pathname);
-
-  const hideFooterPaths = ["/admin/login", "/admin/signup", "/admin/dashboard"]; // Add any path where footer should be hidden
-  const showFooter = !hideFooterPaths.includes(location.pathname);
-
+  const hideNavbarPaths = ["/admin/login", "/admin/signup", "/admin/dashboard", "/admin/forgot-password", "/reset-password"]; // Add any path where navbar should be hidden
+  const showNavbar = !hideNavbarPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
+  const hideFooterPaths = ["/admin/login", "/admin/signup", "/admin/dashboard", "/admin/forgot-password", "/reset-password"]; // Add any path where footer should be hidden
+  const showFooter = !hideFooterPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
   return (
     <>
       {showNavbar && <Navbar />}
@@ -39,6 +43,8 @@ function AppWrapper() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/admin/signup" element={<Signup />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/admin/dashboard" element={<MainDashboard />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/listing/create" element={<CreateListing />} />

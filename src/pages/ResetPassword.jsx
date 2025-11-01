@@ -24,7 +24,7 @@ const ResetPassword = () => {
         try {
             const res = await axios.post(`${API}/reset-password/${token}`, { password });
             toast.success("✅ Password reset successful!");
-            setTimeout(() => navigate("/login"), 2000);
+            setTimeout(() => navigate("/admin/login"), 2000);
         } catch (error) {
             toast.error(error.response?.data?.message || "Invalid or expired link!");
         } finally {
@@ -33,7 +33,7 @@ const ResetPassword = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-200 px-4">
 
             <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-semibold text-center mb-2 text-gray-800">

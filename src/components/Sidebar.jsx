@@ -1,76 +1,163 @@
-import { LayoutDashboard, List, Users, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import React, { useState } from "react";
+import {
+  LayoutDashboard,
+  List,
+  Users,
+  User,
+  ChevronRight,
+  ChevronDown,
+  ChevronLeft,
+  X,
+  Menu,
+  BarChart2,
+  FileText,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
-import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
+  const [openMenus, setOpenMenus] = useState({});
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleMenu = (menuName) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [menuName]: !prev[menuName],
+    }));
+  };
+
   const links = [
-    { name: "Dashboard", icon: <LayoutDashboard size={18} />, badge: null },
-    { name: "All Listings", icon: <List size={18} />, badge: null },
-    { name: "Leads", icon: <List size={18} />, badge: 8 },
-    { name: "Users", icon: <Users size={18} />, badge: 4 },
-    { name: "Profile", icon: <User size={18} />, badge: null },
+    { name: "Dashboard", icon: <LayoutDashboard size={18} /> },
+    {
+      name: "Apps",
+      icon: <List size={18} />,
+      subItems: [
+        { name: "All Listings" },
+        { name: "Leads", badge: 8 },
+        { name: "Users", badge: 4 },
+      ],
+    },
+    {
+      name: "Reports",
+      icon: <BarChart2 size={18} />,
+      subItems: [{ name: "Sales" }, { name: "Revenue" }],
+    },
+    {
+      name: "Pages",
+      icon: <FileText size={18} />,
+      subItems: [{ name: "Profile" }, { name: "Settings" }],
+    },
   ];
 
   return (
-    <aside className="h-screen w-64 bg-white border-r shadow-sm flex flex-col sticky top-0">
+    <motion.aside
+      animate={{ width: collapsed ? "80px" : "260px" }}
+      className="h-screen bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700 flex flex-col sticky top-0 shadow-sm transition-all duration-300"
+    >
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="text-2xl font-bold mb-6 text-center py-4 bg-linear-to-r from-green-600 to-blue-600 text-white rounded-lg mx-3 mt-4 shadow-md"
-      >
-        BizPanel
-      </motion.div>
+      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-700">
+        {!collapsed && (
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-xl font-bold text-[#5156be]"
+          >
+            BizPanel
+          </motion.h1>
+        )}
+        {/* <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          {collapsed ? (
+            <ChevronRight size={22} className="text-[#5156be]" />
+          ) : (
+            <ChevronLeft size={22} className="text-[#5156be]" />
+          )}
+        </button> */}
+      </div>
 
-      <Separator className="mb-4" />
-
-      {/* Sidebar Links */}
-      <ul className="flex-1 px-4 space-y-2">
-        {links.map((link) => {
-          const isActive = activeTab === link.name;
-          return (
+      {/* Menu */}
+      <div className="flex-1 overflow-y-auto py-3">
+        <ul className="space-y-1 px-3">
+          {links.map((link) => (
             <li key={link.name}>
+              {/* Main Menu Item */}
               <button
-                onClick={() => setActiveTab(link.name)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                    ? "bg-linear-to-r from-green-600 to-blue-600 text-white shadow-md"
-                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                onClick={() =>
+                  link.subItems
+                    ? toggleMenu(link.name)
+                    : setActiveTab(link.name)
+                }
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${activeTab === link.name
+                  ? "bg-[#5156be] text-white shadow-md"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                   }`}
               >
                 <div className="flex items-center gap-3">
-                  <span
-                    className={`transition group-hover:scale-110 ${isActive ? "text-white" : "text-gray-500"
-                      }`}
-                  >
-                    {link.icon}
-                  </span>
-                  <span>{link.name}</span>
+                  <span>{link.icon}</span>
+                  {!collapsed && <span>{link.name}</span>}
                 </div>
-
-                {link.badge && (
-                  <Badge
-                    variant="secondary"
-                    className={`text-xs ${isActive
-                        ? "bg-white text-blue-600"
-                        : "bg-blue-50 text-blue-600 border-blue-200"
-                      }`}
-                  >
-                    {link.badge}
-                  </Badge>
+                {!collapsed && link.subItems && (
+                  <span>
+                    {openMenus[link.name] ? (
+                      <ChevronDown size={16} />
+                    ) : (
+                      <ChevronRight size={16} />
+                    )}
+                  </span>
                 )}
               </button>
+
+              {/* Sub Items */}
+              <AnimatePresence>
+                {openMenus[link.name] && !collapsed && link.subItems && (
+                  <motion.ul
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="pl-8 mt-1 space-y-1"
+                  >
+                    {link.subItems.map((sub) => (
+                      <li key={sub.name}>
+                        <button
+                          onClick={() => setActiveTab(sub.name)}
+                          className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition ${activeTab === sub.name
+                            ? "bg-[#5156be]/10 text-[#5156be] font-medium"
+                            : "text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+                            }`}
+                        >
+                          {sub.name}
+                          {sub.badge && (
+                            <Badge
+                              variant="secondary"
+                              className="text-xs bg-blue-50 text-blue-600 border-blue-200"
+                            >
+                              {sub.badge}
+                            </Badge>
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      </div>
 
       {/* Footer */}
-      <div className="mt-auto px-4 py-3 border-t text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Safe Way
-      </div>
-    </aside>
+      {!collapsed && (
+        <>
+          <Separator />
+          <div className="mt-auto px-4 py-3 text-center text-xs text-gray-500 dark:text-gray-400">
+            © {new Date().getFullYear()} Safe Way
+          </div>
+        </>
+      )}
+    </motion.aside>
   );
 };
 

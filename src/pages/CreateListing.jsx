@@ -189,7 +189,7 @@ const ProductListingForm = () => {
                 {/* Right Form */}
                 <div className="w-full md:w-1/2  shadow-md rounded-lg  bg-white p-0">
                     <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-                        Create Your Listing
+                        Create Your Listings
                     </h2>
 
                     <form onSubmit={handleSubmit} className="space-y-2 max-w-xl mx-auto bg-red">

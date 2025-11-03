@@ -187,7 +187,7 @@ const ProductListingForm = () => {
                 </div>
 
                 {/* Right Form */}
-                <div className="w-full md:w-1/2  shadow-md rounded-lg  bg-white p-0">
+                <div className="w-full md:w-1/2  shadow-md rounded-lg  bg-white p-[30px]">
                     <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
                         Create Your Listings
                     </h2>
@@ -486,7 +486,7 @@ const ProductListingForm = () => {
 
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                            className="bg-[#012a7a] hover:bg-[#001846] text-white px-4 py-2 rounded-full cursor-pointer"
                         >
                             Create Listing
                         </button>

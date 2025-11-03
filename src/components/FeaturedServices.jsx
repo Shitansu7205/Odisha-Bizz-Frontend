@@ -181,7 +181,7 @@ export default function FeaturedServices() {
     }, [index]);
 
     return (
-        <section className="bg-linear-to-br from-gray-50 via-white to-gray-100 py-16">
+        <section className="bg-linear-to-br from-gray-50 via-white to-gray-100 py-10">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <h2 className="text-3xl font-bold text-center mb-2 text-gray-900">
                     Our Featured Services.
@@ -194,7 +194,7 @@ export default function FeaturedServices() {
                     {/* Prev Button */}
                     <button
                         onClick={prevSlide}
-                        className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-200 z-10"
+                        className="cursor-pointer absolute -left-4 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-200 z-10"
                     >
                         <ChevronLeft className="w-6 h-6 text-gray-700" />
                     </button>
@@ -219,9 +219,9 @@ export default function FeaturedServices() {
                                         alt={service.title}
                                         className="w-full h-48 object-cover"
                                     />
-                                    <CardContent className="p-5 flex flex-col h-56 justify-between">
+                                    <CardContent className="p-5 flex flex-col h-56 justify-between mt-[-20px]">
                                         <div>
-                                            <div className="flex items-center gap-2 mb-2">
+                                            <div className="flex items-center gap-2 mb-2 mt-0">
                                                 {service.icon}
                                                 <Badge variant="secondary">{service.author}</Badge>
                                             </div>
@@ -251,7 +251,7 @@ export default function FeaturedServices() {
                     {/* Next Button */}
                     <button
                         onClick={nextSlide}
-                        className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-200 z-10"
+                        className="cursor-pointer absolute -right-4 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-200 z-10"
                     >
                         <ChevronRight className="w-6 h-6 text-gray-700" />
                     </button>

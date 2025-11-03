@@ -62,7 +62,7 @@ const FilterCategory = () => {
 
                 <button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md shadow-md transition-all"
+                    className="cursor-pointer bg-[#012a7a] hover:bg-[#001846] text-white px-6 py-2 rounded-md shadow-md transition-all"
                 >
                     Filter
                 </button>

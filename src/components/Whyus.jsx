@@ -28,9 +28,9 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-white">
+    <section className="py-10 px-6 md:px-12 lg:px-24 bg-white">
       {/* Header */}
-      <div className="max-w-3xl mx-auto text-center mb-16">
+      <div className="max-w-3xl mx-auto text-center mb-10">
         <h2 className="text-2xl md:text-4xl font-bold text-gray-900 leading-snug">
           Why Choose Us
         </h2>

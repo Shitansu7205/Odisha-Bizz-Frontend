@@ -90,7 +90,7 @@ const ContactUs = () => {
             </section>
 
             {/* Contact Section */}
-            <section className="w-full py-20 bg-background md:px-20">
+            <section className="w-full py-10 bg-background md:px-20">
                 <div className="container mx-auto px-4">
                     {/* Heading */}
                     <div className="text-center mb-12 space-y-2">
@@ -103,7 +103,7 @@ const ContactUs = () => {
                     <div className="flex flex-col md:flex-row justify-center gap-10 md:gap-20">
                         {/* Form */}
                         <div className="w-full md:w-1/2 bg-card rounded-xl shadow-md p-8 border border-border/40">
-                            <h3 className="text-lg font-semibold mb-6">Send us a message</h3>
+                            <h3 className="text-[30px] font-semibold mb-6">Send us a message</h3>
 
                             <form className="space-y-4" onSubmit={handleSubmit}>
                                 <div className="flex flex-col sm:flex-row gap-4">
@@ -140,7 +140,7 @@ const ContactUs = () => {
                                         </SelectItem>
                                         <SelectItem value="support">
                                             <div className="flex items-center gap-2">
-                                                <Wrench className="w-4 h-4 text-green-500" />
+                                                <Wrench className="w-4 h-4 text-[#249732]" />
                                                 Customer Support
                                             </div>
                                         </SelectItem>
@@ -189,7 +189,7 @@ const ContactUs = () => {
 
                                 <Button
                                     type="submit"
-                                    className="w-full bg-green-600 hover:bg-green-700 text-white text-base font-medium"
+                                    className="w-full bg-[#249732] hover:bg-green-700 text-white text-base font-medium"
                                 >
                                     Send Inquiry
                                 </Button>
@@ -203,7 +203,7 @@ const ContactUs = () => {
                         {/* Contact Info */}
                         <div className="w-full md:w-1/2 flex flex-col justify-center space-y-8">
                             <div className="flex items-start gap-4 border-b pb-6">
-                                <MapPin className="w-5 h-5 text-green-600 mt-1" />
+                                <MapPin className="w-8 h-8 text-[#249732] mt-1" />
                                 <div>
                                     <h4 className="font-semibold">Our Address</h4>
                                     <p className="text-muted-foreground text-sm">
@@ -217,7 +217,7 @@ const ContactUs = () => {
                             </div>
 
                             <div className="flex items-start gap-4 border-b pb-6">
-                                <Mail className="w-5 h-5 text-green-600 mt-1" />
+                                <Mail className="w-8 h-8 text-[#249732] mt-1" />
                                 <div>
                                     <h4 className="font-semibold">Email Us</h4>
                                     <p className="text-muted-foreground text-sm">
@@ -230,7 +230,7 @@ const ContactUs = () => {
                             </div>
 
                             <div className="flex items-start gap-4">
-                                <Phone className="w-5 h-5 text-green-600 mt-1" />
+                                <Phone className="w-8 h-8 text-[#249732] mt-1 " />
                                 <div>
                                     <h4 className="font-semibold">Call Us</h4>
                                     <p className="text-muted-foreground text-sm">

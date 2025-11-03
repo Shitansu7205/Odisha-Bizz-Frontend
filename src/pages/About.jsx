@@ -38,7 +38,7 @@ const About = () => {
                         Empowering businesses with technology & innovation
                     </p>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide drop-shadow-lg">
-                        About Us !
+                        About Us
                     </h1>
                 </motion.div>
             </section>
@@ -91,7 +91,7 @@ const About = () => {
                                     "24/7 client support",
                                 ].map((item) => (
                                     <div key={item} className="flex items-center gap-2 text-sm">
-                                        <CheckCircle2 className="w-4 h-4 text-green-600" />
+                                        <CheckCircle2 className="w-4 h-4 text-[#249732]" />
                                         <span>{item}</span>
                                     </div>
                                 ))}
@@ -101,14 +101,14 @@ const About = () => {
                         <div className="flex flex-wrap gap-3 pt-4">
                             <Button
                                 onClick={() => router("/")}
-                                className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 shadow-md rounded-xl"
+                                className="cursor-pointer bg-[#249732] hover:bg-green-700 text-white flex items-center gap-2 shadow-md rounded-xl"
                             >
                                 <Info className="w-4 h-4" />
                                 Learn More
                             </Button>
                             <Button
                                 onClick={() => router("/contact")}
-                                className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 shadow-md rounded-xl"
+                                className="cursor-pointer bg-[#012a7a] hover:bg-[#001846] text-white flex items-center gap-2 shadow-md rounded-xl"
                             >
                                 Get Started
                                 <ArrowRight className="w-4 h-4" />

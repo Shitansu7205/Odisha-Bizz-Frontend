@@ -45,7 +45,7 @@ const About = () => {
 
 
 
-            <section className="w-full py-20 bg-background md:px-20">
+            <section className="w-full py-10 bg-background md:px-20">
                 <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
                     {/* Left: Image */}
                     <div className="w-full md:w-1/2">

@@ -38,7 +38,7 @@ const About = () => {
                         Empowering businesses with technology & innovation
                     </p>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide drop-shadow-lg">
-                        About Us
+                        About Us !
                     </h1>
                 </motion.div>
             </section>

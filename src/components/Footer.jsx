@@ -84,7 +84,7 @@ const Footer = () => {
 
           {/* 📞 Phone */}
           <div className="flex items-center gap-2 text-gray-300">
-            <FaPhoneAlt className="text-[#0000]" />
+            <FaPhoneAlt className="text-[#249732]" />
             <a href="tel:+919876543210" className="hover:text-[#249732] transition">
               +91 9876543210
             </a>

@@ -34,9 +34,9 @@ const Footer = () => {
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid md:grid-cols-4 gap-8">
         {/* Logo + Description */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 items-start">
           <img
-            src="https://ctsdemo.com/odishabiz-website/assets/images/odishabiz-logo.png"
+            src="/images/logo.png"
             alt="Odisha Bizz"
             className="h-12 object-contain"
           />

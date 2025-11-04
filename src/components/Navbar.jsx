@@ -380,7 +380,7 @@ const Navbar = () => {
             <img
               src="/images/logo.png"
               alt="Odisha Bizz"
-              className="h-10 object-contain hidden sm:block"
+              className="h-[50px] w-[140px] object-contain hidden sm:block"
             />
             <img
               src="/images/logo.png"
@@ -474,7 +474,7 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link
                       to="/admin/dashboard"
-                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <User className="w-4 h-4" /> My Dashboard
                     </Link>
@@ -482,8 +482,8 @@ const Navbar = () => {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      to="/reset-password"
-                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+                      to="/admin/reset-password"
+                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" /> Reset Password
                     </Link>

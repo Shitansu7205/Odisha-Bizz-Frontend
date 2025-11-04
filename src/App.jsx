@@ -43,8 +43,8 @@ function AppWrapper() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/admin/signup" element={<Signup />} />
           <Route path="/admin/login" element={<Login />} />
-          <Route path="/admin/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/admin/admin/forgot-password" element={<ForgotPassword />} />
+          <Route path="/admin/reset-password/:token" element={<ResetPassword />} />
           <Route path="/admin/dashboard" element={<MainDashboard />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/listing/create" element={<CreateListing />} />

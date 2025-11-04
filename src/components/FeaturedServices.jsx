@@ -28,7 +28,7 @@ export const services = [
         title: "Real Estate",
         description: "Building dreams, one property at a time.",
         author: "Lorem Ipsum",
-        icon: <Building2 className="w-5 h-5 text-green-600" />,
+        icon: <Building2 className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
         link: "/real-estate",
     },
@@ -36,7 +36,7 @@ export const services = [
         title: "Healthcare",
         description: "Caring for your health, every step of the way.",
         author: "Lorem Ipsum",
-        icon: <HeartPulse className="w-5 h-5 text-green-600" />,
+        icon: <HeartPulse className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/healthcare.jpg",
         link: "/healthcare",
     },
@@ -44,7 +44,7 @@ export const services = [
         title: "Finance & Banking",
         description: "Smart solutions for your financial growth.",
         author: "Lorem Ipsum",
-        icon: <Banknote className="w-5 h-5 text-green-600" />,
+        icon: <Banknote className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg",
         link: "/finance",
     },
@@ -52,7 +52,7 @@ export const services = [
         title: "Retail & E-commerce",
         description: "Bringing the best products to your doorstep.",
         author: "Lorem Ipsum",
-        icon: <ShoppingBag className="w-5 h-5 text-green-600" />,
+        icon: <ShoppingBag className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/Retail_E-commerce.jpg",
         link: "/retail",
     },
@@ -60,7 +60,7 @@ export const services = [
         title: "Hospitality & Tourism",
         description: "Creating memorable experiences around the world.",
         author: "Lorem Ipsum",
-        icon: <Plane className="w-5 h-5 text-green-600" />,
+        icon: <Plane className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/Hospitality_Tourism.jpg",
         link: "/tourism",
     },
@@ -68,7 +68,7 @@ export const services = [
         title: "Manufacturing & Industrial",
         description: "Powering progress through innovation and efficiency.",
         author: "Lorem Ipsum",
-        icon: <Factory className="w-5 h-5 text-green-600" />,
+        icon: <Factory className="w-5 h-5 text-[#249732]" />,
         image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
         link: "/manufacturing",
     },
@@ -76,56 +76,49 @@ export const services = [
         title: "Energy & Utilities",
         description: "Sustaining the future with clean and smart energy.",
         author: "Lorem Ipsum",
-        icon: <Zap className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <Zap className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Energy_Utilities.avif",
         link: "/energy",
     },
     {
         title: "Transportation & Logistics",
         description: "Delivering efficiency across every mile.",
         author: "Lorem Ipsum",
-        icon: <Truck className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <Truck className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Transportation_Logistics.jpg",
         link: "/transportation",
     },
     {
         title: "Media & Entertainment",
         description: "Inspiring creativity and connecting people worldwide.",
         author: "Lorem Ipsum",
-        icon: <Clapperboard className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <Clapperboard className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Media-Entertainment.jpg",
         link: "/media",
     },
     {
         title: "Agriculture & Food",
         description: "Cultivating growth from farm to table.",
         author: "Lorem Ipsum",
-        icon: <Leaf className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <Leaf className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Agriculture_Food.jpg",
         link: "/agriculture",
     },
-    {
-        title: "Jewellery",
-        description: "Crafting elegance that defines your style.",
-        author: "Lorem Ipsum",
-        icon: <Gem className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
-        link: "/jewellery",
-    },
+    
     {
         title: "Education & Learning",
         description: "Empowering minds through innovative education.",
         author: "Lorem Ipsum",
-        icon: <BookOpen className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <BookOpen className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Education-Learning.avif",
         link: "/education",
     },
     {
         title: "Technology & Innovation",
         description: "Innovating the future, one idea at a time.",
         author: "Lorem Ipsum",
-        icon: <Cpu className="w-5 h-5 text-green-600" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        icon: <Cpu className="w-5 h-5 text-[#249732]" />,
+        image: "/images/Technology-Innovation.avif",
         link: "/technology",
     },
 ];
@@ -209,7 +202,7 @@ export default function FeaturedServices() {
                             {extendedServices.map((service, i) => (
                                 <Card
                                     key={i}
-                                    className={`shrink-0 rounded-2xl shadow-md overflow-hidden bg-white transition-all pt-0`}
+                                    className={`shrink-0 rounded-2xl shadow-md overflow-hidden bg-white transition-all p-0`}
                                     style={{
                                         width: `calc(${100 / visibleCards}% - 1rem)`,
                                     }}
@@ -238,7 +231,7 @@ export default function FeaturedServices() {
                                         </Button> */}
                                         <Link
                                             to={`/category/${service.title}`}
-                                            className="bg-green-600 hover:bg-green-700 text-white rounded-full px-5 py-1.5 mt-4 text-center text-sm font-bold"
+                                            className="bg-[#249732] hover:bg-green-700 text-white rounded-full px-5 py-1.5 mt-4 text-center text-sm font-bold"
                                         >
                                             Learn More
                                         </Link>

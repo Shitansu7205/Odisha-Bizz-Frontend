@@ -34,8 +34,8 @@ const stats = [
         icon: <BarChart3 size={18} className="text-[#5156be]" />,
     },
     {
-        title: "Active Branches",
-        value: "12",
+        title: "Total Comments",
+        value: "150",
         change: "+2",
         positive: true,
         icon: <Building2 size={18} className="text-[#5156be]" />,

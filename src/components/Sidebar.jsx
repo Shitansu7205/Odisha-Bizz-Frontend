@@ -61,10 +61,15 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xl font-bold text-[#5156be]"
+            className="w-full flex justify-center"
           >
-            BizPanel
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="w-full max-w-[130px] h-auto object-contain"
+            />
           </motion.h1>
+
         )}
         {/* <button
           onClick={() => setCollapsed(!collapsed)}

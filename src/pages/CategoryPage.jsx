@@ -31,7 +31,7 @@ const CategoryPage = () => {
     // const [latestProducts, setLatestProducts] = useState([]);
     // const [Loading, setLoading] = useState(false);
 
-    const { listings, fetchAllListings, loading,error } = useListingStore();
+    const { listings, fetchAllListings, loading, error } = useListingStore();
 
     // Fetch all listings once (only if not already loaded)
     useEffect(() => {
@@ -138,8 +138,8 @@ const CategoryPage = () => {
                     <p className="text-sm sm:text-base text-gray-200 mb-2 tracking-wide">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </p>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide drop-shadow-lg">
-                        {categoryName}
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold tracking-wide drop-shadow-lg">
+                        Top 10  {categoryName} Companies
                     </h1>
                 </motion.div>
             </section>
@@ -227,7 +227,7 @@ const CategoryPage = () => {
                                         </div>
 
 
-                                       {/* Social Media */}
+                                        {/* Social Media */}
                                         <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                                             {/* Left side - Social icons */}
                                             <div className="flex gap-4">

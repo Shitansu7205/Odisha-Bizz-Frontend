@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import FilterCategory from '../components/FilterCategory'
 
+
 const Category = () => {
   return (
     <>
@@ -31,6 +32,7 @@ const Category = () => {
       </section>
 
       <FilterCategory />
+
     </>
   )
 }

@@ -56,7 +56,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       className="h-screen bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700 flex flex-col sticky top-0 shadow-sm transition-all duration-300"
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-between px-2 pt-2 pb-2 border-b border-gray-200 dark:border-gray-700">
         {!collapsed && (
           <motion.h1
             initial={{ opacity: 0 }}
@@ -84,10 +84,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       </div>
 
       {/* Menu */}
-      <div className="flex-1 overflow-y-auto py-3">
+      <div className="flex-1 overflow-y-auto py-6">
         <ul className="space-y-1 px-3">
           {links.map((link) => (
-            <li key={link.name}>
+            <li key={link.name} className="mb-2">
               {/* Main Menu Item */}
               <button
                 onClick={() =>

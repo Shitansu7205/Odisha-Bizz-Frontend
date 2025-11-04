@@ -29,7 +29,7 @@ export const services = [
         description: "Building dreams, one property at a time.",
         author: "Lorem Ipsum",
         icon: <Building2 className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        image: "/images/real-estate.jpg",
         link: "/real-estate",
     },
     {
@@ -37,7 +37,7 @@ export const services = [
         description: "Caring for your health, every step of the way.",
         author: "Lorem Ipsum",
         icon: <HeartPulse className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/healthcare.jpg",
+        image: "/images/healthcare.jpg",
         link: "/healthcare",
     },
     {
@@ -45,7 +45,7 @@ export const services = [
         description: "Smart solutions for your financial growth.",
         author: "Lorem Ipsum",
         icon: <Banknote className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg",
+        image: "/images/Finance_Banking.jpg",
         link: "/finance",
     },
     {
@@ -53,7 +53,7 @@ export const services = [
         description: "Bringing the best products to your doorstep.",
         author: "Lorem Ipsum",
         icon: <ShoppingBag className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/Retail_E-commerce.jpg",
+        image: "/images/Retail_E-commerce.jpg",
         link: "/retail",
     },
     {
@@ -61,7 +61,7 @@ export const services = [
         description: "Creating memorable experiences around the world.",
         author: "Lorem Ipsum",
         icon: <Plane className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/Hospitality_Tourism.jpg",
+        image: "/images/Hospitality_Tourism.jpg",
         link: "/tourism",
     },
     {
@@ -69,7 +69,7 @@ export const services = [
         description: "Powering progress through innovation and efficiency.",
         author: "Lorem Ipsum",
         icon: <Factory className="w-5 h-5 text-[#249732]" />,
-        image: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        image: "/images/manufacturing.jpg",
         link: "/manufacturing",
     },
     {

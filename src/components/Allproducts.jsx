@@ -64,24 +64,7 @@ const ListingsSection = () => {
         fetchData();
     }, []);
 
-    // ✅ Handle Update Submit
-    // const handleUpdate = async (e) => {
-    //     setLoading(true);
-    //     e.preventDefault();
-    //     try {
-    //         await axios.put(`${API}/update-listings/${selectedListing._id}`, selectedListing);
-    //         setOpen(false);
-    //         fetchData();
-    //         setLoading(false);
-    //         toast.success("Listing updated successfully!");
-    //     } catch (error) {
-    //         console.error("Error updating listing:", error);
-    //         toast.error("Failed to update listing. Please try again.");
-    //         setLoading(false);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         setLoading(true);

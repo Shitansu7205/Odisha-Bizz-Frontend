@@ -189,7 +189,7 @@ const ContactUs = () => {
 
                                 <Button
                                     type="submit"
-                                    className="w-full bg-[#249732] hover:bg-green-700 text-white text-base font-medium"
+                                    className="cursor-pointer w-full bg-[#249732] hover:bg-green-700 text-white text-base font-medium"
                                 >
                                     Send Inquiry
                                 </Button>

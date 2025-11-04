@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import Loader from "@/components/Loader";
 import useListingStore from "@/store/useListingStore";
 import { useMemo } from "react";
+import CommentSection from "@/components/CommentSection";
 
 
 const CategoryPage = () => {
@@ -226,7 +227,7 @@ const CategoryPage = () => {
                                         </div>
 
 
-                                        {/* Social Media */}
+                                       {/* Social Media */}
                                         <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                                             {/* Left side - Social icons */}
                                             <div className="flex gap-4">
@@ -303,28 +304,35 @@ const CategoryPage = () => {
                                                         </Tooltip>
                                                     )}
                                                 </TooltipProvider>
+                                                {product.socialMedia?.website && (
+                                                    <TooltipProvider>
+                                                        <Tooltip>
+                                                            <TooltipTrigger asChild>
+                                                                <a
+                                                                    href={product.socialMedia.website}
+                                                                    target="_blank"
+                                                                    rel="noreferrer"
+                                                                    className="flex items-center gap-1 p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
+                                                                >
+                                                                    <FaGlobe className="w-5 h-5" />
+                                                                </a>
+                                                            </TooltipTrigger>
+                                                            <TooltipContent>
+                                                                <p>Visit Website</p>
+                                                            </TooltipContent>
+                                                        </Tooltip>
+                                                    </TooltipProvider>
+                                                )}
                                             </div>
 
+
+                                            {/* Comment Section */}
+
+
+                                            {/* Comment List */}
+                                            <CommentSection listingId={product._id} />
                                             {/* Right side - Website badge */}
-                                            {product.socialMedia?.website && (
-                                                <TooltipProvider>
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
-                                                            <a
-                                                                href={product.socialMedia.website}
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                                className="flex items-center gap-1 p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
-                                                            >
-                                                                <FaGlobe className="w-5 h-5" />
-                                                            </a>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            <p>Visit Website</p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-                                            )}
+
                                         </div>
                                     </div>
                                 </div>

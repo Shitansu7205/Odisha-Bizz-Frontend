@@ -20,7 +20,7 @@ const About = () => {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative w-full h-[240px] sm:h-[300px] lg:h-[360px] flex items-center justify-center overflow-hidden">
+            <section className="relative w-full h-60 sm:h-[300px] lg:h-[360px] flex items-center justify-center overflow-hidden">
                 <img
                     src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
                     alt="Background Image"

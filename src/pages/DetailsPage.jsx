@@ -32,7 +32,7 @@ export default function VenueDetails() {
   const API = import.meta.env.VITE_BACKEND_API_URL;
 
   const [activeTab, setActiveTab] = useState("overview");
-  const { id } = useParams();
+  const { slug } = useParams();
 
 
   const [listing, setListing] = useState(null);
@@ -51,7 +51,7 @@ export default function VenueDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${API}/get-listing/${id}`);
+        const res = await axios.get(`${API}/get-listing/${slug}`);
         if (res.status === 200) {
           setListing(res.data.listing);
           setComments(res.data.comments || []);
@@ -61,7 +61,7 @@ export default function VenueDetails() {
       }
     };
     fetchData();
-  }, [id, API]);
+  }, [slug, API]);
 
   if (!listing) return <Loader />
 
@@ -224,7 +224,7 @@ export default function VenueDetails() {
                 {/* Header with title + button side-by-side */}
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-semibold text-gray-900">User Reviews</h2>
-                  <CommentSection listingId={id} />
+                  <CommentSection listingId={listing._id} />
                 </div>
 
                 {comments.length === 0 ? (

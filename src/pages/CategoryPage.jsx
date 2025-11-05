@@ -326,7 +326,7 @@ const CategoryPage = () => {
 
                                             {/* Right side - View Details Button */}
                                             <Link
-                                                to={`/listing-details/${product._id}`}
+                                                to={`/listing-details/${product.slug}`}
                                                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#4f46e5] hover:bg-[#4338ca] text-white text-sm font-medium shadow-md px-4 py-2 transition-all duration-200 hover:shadow-lg active:scale-95"
                                             >
                                                 View Details

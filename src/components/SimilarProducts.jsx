@@ -75,7 +75,7 @@ const SimilarProducts = ({ category }) => {
                                 <h4 className="font-semibold text-gray-900 text-lg">{item.title}</h4>
                                 <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
                                 <button
-                                    onClick={() => navigate(`/listing-details/${item._id}`)}
+                                    onClick={() => navigate(`/listing-details/${item.slug}`)}
                                     className="mt-3 flex items-center justify-center gap-2 bg-[#4f46e5] hover:bg-[#4f66e5] text-white py-1.5 rounded-full text-sm font-medium transition cursor-pointer"
                                 >
                                     View More <ArrowRight className="w-4 h-4" />

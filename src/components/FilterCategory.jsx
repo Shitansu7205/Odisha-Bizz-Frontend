@@ -187,7 +187,7 @@ const FilterCategory = () => {
 
                                     <div className="mt-6 flex justify-end">
                                         <Link
-                                            to={`/listing-details/${listing._id}`}
+                                            to={`/listing-details/${listing.slug}`}
                                             className="flex items-center gap-2 bg-[#249732] hover:bg-green-600 text-white rounded-full px-5 py-1.5 shadow-md transition-all duration-300"
                                         >
                                             More <ArrowRight className="w-4 h-4" />

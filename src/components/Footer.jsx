@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#0b2c71] text-white relative">
+    <footer className="w-full bg-[#0b2c71] text-white relative" >
       {/* Top green subscription bar */}
       <div className="bg-[#249732] text-white py-3 px-4 md:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">

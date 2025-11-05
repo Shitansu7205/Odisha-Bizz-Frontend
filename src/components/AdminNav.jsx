@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search, Bell, Sun, Moon, Settings, LogOut, User, ChevronDown } from "lucide-react";
+import { Search, Bell, Sun, Moon, Settings, LogOut, User, ChevronDown ,PlusCircle ,List,Tags,Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+
 
 const AdminHeader = ({ activeTab }) => {
   const [theme, setTheme] = useState("light");
@@ -57,16 +59,48 @@ const AdminHeader = ({ activeTab }) => {
               Options <ChevronDown className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
+          <DropdownMenuContent
+            align="end"
+            className="w-56 p-1 rounded-md shadow-lg bg-white dark:bg-gray-800"
+          >
+            <DropdownMenuLabel className="text-xs font-semibold text-gray-500 dark:text-gray-400 px-2 py-1">
+              Quick Actions
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Settings className="w-4 h-4 mr-2" /> Settings
+
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer rounded-md"
+            >
+              <a href="/listing/create" className="flex items-center w-full">
+                <PlusCircle className="w-4 h-4 text-blue-600" />
+                New Post
+              </a>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User className="w-4 h-4 mr-2" /> Profile
+
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer rounded-md"
+            >
+              <a href="/categories" className="flex items-center w-full">
+                <List className="w-4 h-4 text-indigo-600" />
+                All Listings
+              </a>
+            </DropdownMenuItem>
+
+
+
+            <DropdownMenuItem
+              asChild
+              className="flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer rounded-md"
+            >
+              <a href="/" className="flex items-center w-full">
+                <Home className="w-4 h-4 text-green-600" />
+                Back to Home
+              </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
+
         </DropdownMenu>
 
         {/* Notifications */}

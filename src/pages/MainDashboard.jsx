@@ -44,10 +44,14 @@ export default function MainDashboard() {
             case "Leads":
                 return <Leads />;
             case "Users":
-                return <Allproducts />;
+                return ;
             case "Profile":
                 return <ProfilePage />;
             case "Settings":
+                return;
+            case "Sales":
+                return;
+            case "Revenue":
                 return;
             default:
                 return <HomeDashboard />;

@@ -7,31 +7,31 @@ const cards = [
     {
         title: "Real Estate",
         desc: "Smart investments and housing innovations.",
-        img: "https://ctsdemo.com/odishabiz-website/assets/images/real-estate.jpg",
+        img: "/images/real-estate.jpg",
         url: "/category/Real%20Estate"
     },
     {
         title: "Healthcare",
         desc: "Modern technologies transforming patient care.",
-        img: "https://ctsdemo.com/odishabiz-website/assets/images/healthcare.jpg",
+        img: "/images/healthcare.jpg",
         url: "/category/Healthcare"
     },
     {
         title: "Finance",
         desc: "Empowering financial inclusion.",
-        img: "https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg",
+        img: "/images/Finance_Banking.jpg",
         url: "/category/Finance%20&%20Banking"
     },
     {
         title: "E-Commerce",
         desc: "Revolutionizing digital shopping.",
-        img: "https://ctsdemo.com/odishabiz-website/assets/images/Retail_E-commerce.jpg",
+        img: "/images/Retail_E-commerce.jpg",
         url: "/category/Retail%20&%20E-commerce"
     },
     {
         title: "Hospitality",
         desc: "Innovating guest experiences worldwide.",
-        img: "https://ctsdemo.com/odishabiz-website/assets/images/Hospitality_Tourism.jpg",
+        img: "/images/Hospitality_Tourism.jpg",
         url: "/category/Hospitality%20&%20Tourism"
     },
 ];

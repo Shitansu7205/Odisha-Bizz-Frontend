@@ -20,6 +20,7 @@ import MainDashboard from "./pages/MainDashboard";
 import Category from "./pages/Category";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import DetailsPage from "./pages/DetailsPage";
 
 
 function AppWrapper() {
@@ -48,6 +49,7 @@ function AppWrapper() {
           <Route path="/admin/dashboard" element={<MainDashboard />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/listing/create" element={<CreateListing />} />
+          <Route path="/listing-details/:id" element={<DetailsPage />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/demo" element={<Demo />} />

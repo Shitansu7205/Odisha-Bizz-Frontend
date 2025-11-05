@@ -484,7 +484,6 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link
                       to="/admin/reset-password"
-                      target="_blank"
                       className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" /> Reset Password

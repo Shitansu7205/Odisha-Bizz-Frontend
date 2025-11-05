@@ -202,22 +202,7 @@ const ProductListingForm = () => {
                             className="w-full border px-3 py-2 rounded"
                             required
                         />
-                        {/* <Input
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
-                            className="w-full border px-3 py-2 rounded"
-                        />
-                        {image && (
-                            <div className="mt-2">
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt="Preview"
-                                    className="w-32 h-32 object-cover rounded border"
-                                />
-                            </div>
-                        )} */}
+                        
 
                         <Input
                             id="image"
@@ -246,46 +231,6 @@ const ProductListingForm = () => {
                             required
                         />
 
-                        {/* <select
-                            name="category"
-                            value={formData.category}
-                            onChange={handleChange}
-                            className="w-full border px-3 py-2 rounded"
-                            required
-                        >
-                            <option value="">Select Category</option>
-                            <option value="Real Estate">Real Estate</option>
-                            <option value="Healthcare">Healthcare</option>
-                            <option value="Finance & Banking">Finance & Banking</option>
-                            <option value="Retail & E-commerce">Retail & E-commerce</option>
-                            <option value="Hospitality & Tourism">Hospitality & Tourism</option>
-                            <option value="Manufacturing & Industrial">Manufacturing & Industrial</option>
-                            <option value="Energy & Utilities">Energy & Utilities</option>
-                            <option value="Transportation & Logistics">Transportation & Logistics</option>
-                            <option value="Media & Entertainment">Media & Entertainment</option>
-                            <option value="Agriculture & Food">Agriculture & Food</option>
-                            <option value="Jewellery">Jewellery</option>
-                        </select>
-
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="w-full border px-3 py-2 rounded"
-                            required
-                        />
-
-                        <input
-                            type="text"
-                            name="phone"
-                            placeholder="Phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="w-full border px-3 py-2 rounded"
-                            required
-                        /> */}
 
 
                         {/* Pincode & Category Side by Side */}

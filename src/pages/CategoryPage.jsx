@@ -6,7 +6,8 @@ import {
     MapPin,
     Globe,
     Building2,
-    CheckCircle
+    CheckCircle,
+    ArrowRight
 } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaXTwitter, FaLinkedin, FaGlobe, FaArrowRight } from "react-icons/fa6";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +23,8 @@ import Loader from "@/components/Loader";
 import useListingStore from "@/store/useListingStore";
 import { useMemo } from "react";
 import CommentSection from "@/components/CommentSection";
-
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CategoryPage = () => {
     const { categoryName } = useParams();
@@ -31,7 +33,7 @@ const CategoryPage = () => {
     // const [latestProducts, setLatestProducts] = useState([]);
     // const [Loading, setLoading] = useState(false);
 
-    const { listings, fetchAllListings, loading,error } = useListingStore();
+    const { listings, fetchAllListings, loading, error } = useListingStore();
 
     // Fetch all listings once (only if not already loaded)
     useEffect(() => {
@@ -138,8 +140,8 @@ const CategoryPage = () => {
                     <p className="text-sm sm:text-base text-gray-200 mb-2 tracking-wide">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </p>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide drop-shadow-lg">
-                        {categoryName}
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold tracking-wide drop-shadow-lg">
+                        Top 10  {categoryName} Companies
                     </h1>
                 </motion.div>
             </section>
@@ -227,10 +229,10 @@ const CategoryPage = () => {
                                         </div>
 
 
-                                       {/* Social Media */}
+                                        {/* Social Media */}
                                         <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                                             {/* Left side - Social icons */}
-                                            <div className="flex gap-4">
+                                            <div className="flex gap-3">
                                                 <TooltipProvider>
                                                     {product.socialMedia?.facebook && (
                                                         <Tooltip>
@@ -241,7 +243,7 @@ const CategoryPage = () => {
                                                                     rel="noreferrer"
                                                                     className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
                                                                 >
-                                                                    <FaFacebookF size={16} />
+                                                                    <FaFacebookF size={12} />
                                                                 </a>
                                                             </TooltipTrigger>
                                                             <TooltipContent>
@@ -259,7 +261,7 @@ const CategoryPage = () => {
                                                                     rel="noreferrer"
                                                                     className="p-2 rounded-full bg-pink-100 text-pink-600 hover:bg-pink-600 hover:text-white transition-all"
                                                                 >
-                                                                    <FaInstagram size={16} />
+                                                                    <FaInstagram size={12} />
                                                                 </a>
                                                             </TooltipTrigger>
                                                             <TooltipContent>
@@ -277,7 +279,7 @@ const CategoryPage = () => {
                                                                     rel="noreferrer"
                                                                     className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
                                                                 >
-                                                                    <FaXTwitter size={16} />
+                                                                    <FaXTwitter size={12} />
                                                                 </a>
                                                             </TooltipTrigger>
                                                             <TooltipContent>
@@ -295,7 +297,7 @@ const CategoryPage = () => {
                                                                     rel="noreferrer"
                                                                     className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
                                                                 >
-                                                                    <FaLinkedin size={16} />
+                                                                    <FaLinkedin size={12} />
                                                                 </a>
                                                             </TooltipTrigger>
                                                             <TooltipContent>
@@ -303,37 +305,37 @@ const CategoryPage = () => {
                                                             </TooltipContent>
                                                         </Tooltip>
                                                     )}
-                                                </TooltipProvider>
-                                                {product.socialMedia?.website && (
-                                                    <TooltipProvider>
+
+                                                    {product.socialMedia?.website && (
                                                         <Tooltip>
                                                             <TooltipTrigger asChild>
                                                                 <a
                                                                     href={product.socialMedia.website}
                                                                     target="_blank"
                                                                     rel="noreferrer"
-                                                                    className="flex items-center gap-1 p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
+                                                                    className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-600 hover:text-white transition-all"
                                                                 >
-                                                                    <FaGlobe className="w-5 h-5" />
+                                                                    <FaGlobe className="w-3.5 h-3.5" />
                                                                 </a>
                                                             </TooltipTrigger>
                                                             <TooltipContent>
                                                                 <p>Visit Website</p>
                                                             </TooltipContent>
                                                         </Tooltip>
-                                                    </TooltipProvider>
-                                                )}
+                                                    )}
+                                                </TooltipProvider>
                                             </div>
 
-
-                                            {/* Comment Section */}
-
-
-                                            {/* Comment List */}
-                                            <CommentSection listingId={product._id} />
-                                            {/* Right side - Website badge */}
-
+                                            {/* Right side - View Details Button */}
+                                            <Link
+                                                to={`/listing-details/${product._id}`}
+                                                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#4f46e5] hover:bg-[#4338ca] text-white text-sm font-medium shadow-md px-4 py-2 transition-all duration-200 hover:shadow-lg active:scale-95"
+                                            >
+                                                View Details
+                                                <ArrowRight className="w-4 h-4" />
+                                            </Link>
                                         </div>
+
                                     </div>
                                 </div>
                             )))}

@@ -22,8 +22,6 @@ import { toast } from "react-toastify";
 import Loader from "@/components/Loader";
 import useListingStore from "@/store/useListingStore";
 import { useMemo } from "react";
-import CommentSection from "@/components/CommentSection";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const CategoryPage = () => {

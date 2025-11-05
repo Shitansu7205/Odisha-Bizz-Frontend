@@ -25,6 +25,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CommentSection from "../components/CommentSection";
+import SimilarProducts from "../components/SimilarProducts";
+import Loader from "@/components/Loader";
 
 export default function VenueDetails() {
   const API = import.meta.env.VITE_BACKEND_API_URL;
@@ -61,7 +63,7 @@ export default function VenueDetails() {
     fetchData();
   }, [id, API]);
 
-  if (!listing) return <p className="text-center mt-10">Loading...</p>;
+  if (!listing) return <Loader />
 
 
   return (
@@ -269,8 +271,8 @@ export default function VenueDetails() {
                             key={i}
                             size={16}
                             className={`${i < (comment.rating || 5)
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-gray-300"
+                              ? "fill-yellow-400 text-yellow-400"
+                              : "text-gray-300"
                               }`}
                           />
                         ))}
@@ -315,86 +317,104 @@ export default function VenueDetails() {
             </div>
 
             {/* RIGHT SIDE (STICKY) */}
-            <div className="space-y-4 lg:sticky lg:top-20 self-start h-fit">
+            <div className="space-y-6 lg:sticky lg:top-20 self-start h-fit">
               {/* Contact Card */}
-              <div className="border rounded-xl p-5 shadow-sm bg-white">
-                <h3 className="font-semibold text-gray-800 mb-2">Contact</h3>
-                <a href={`tel:${listing.phone}`} className="text-blue-600 font-medium">
-                  {listing.phone}
-                </a>
+              <div className="border rounded-2xl p-6 shadow-sm bg-white space-y-4">
+                <h3 className="font-semibold text-gray-800 text-lg border-b pb-2">Contact Information</h3>
 
-                <h3 className="font-semibold text-gray-800 mt-4 mb-2">Address</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {listing.address.city}, {listing.address.state}, {listing.address.pincode}
-                </p>
+                {/* Phone */}
+                <div>
+                  <p className="text-gray-500 text-sm mb-1">Phone</p>
+                  <a href={`tel:${listing.phone}`} className="text-blue-600 font-medium hover:underline">
+                    {listing.phone}
+                  </a>
+                </div>
 
-                <div className="mt-3 flex justify-between text-sm text-blue-600 font-medium">
-                  <button className="flex items-center gap-1">
-                    <Navigation className="w-4 h-4" /> Get Directions
+                {/* Address */}
+                <div>
+                  <p className="text-gray-500 text-sm mb-1">Address</p>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {listing.address.city}, {listing.address.state}, {listing.address.pincode}
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="mt-3 flex justify-between text-sm font-medium">
+                  <button className="flex items-center gap-2 text-blue-600 hover:underline">
+                    <Navigation className="w-5 h-5" /> Get Directions
                   </button>
-                  <button className="flex items-center gap-1">
-                    <Copy className="w-4 h-4" /> Copy
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                    <Copy className="w-5 h-5" /> Copy
                   </button>
                 </div>
 
-                <div className="mt-4 flex flex-col gap-2 text-sm text-gray-700">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-green-600" /> Opens in 27 mins
+                {/* Additional Info */}
+                <div className="mt-4 flex flex-col gap-3 text-sm text-gray-700">
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-5 h-5 text-green-600" /> Opens in 27 mins
                   </div>
-                  <div className="flex items-center gap-2 text-blue-600">
-                    <PenLine className="w-4 h-4" /> Suggest New Timings
+                  <div className="flex items-center gap-3 text-blue-600 cursor-pointer hover:underline">
+                    <PenLine className="w-5 h-5" /> Suggest New Timings
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" />{listing.email}
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-5 h-5 text-gray-500" /> {listing.email}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Store className="w-4 h-4" /> Get info via SMS/Email
+                  <div className="flex items-center gap-3">
+                    <Store className="w-5 h-5 text-gray-500" /> Get info via SMS/Email
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Share2 className="w-4 h-4" /> Share
+                  <div className="flex items-center gap-3 cursor-pointer hover:text-blue-600">
+                    <Share2 className="w-5 h-5 text-gray-500" /> Share
                   </div>
-                  <div className="flex items-center gap-2">
-                    <ArrowRightCircle className="w-4 h-4" /> Tap to rate
+                  <div className="flex items-center gap-3 text-yellow-600 cursor-pointer hover:text-yellow-700">
+                    <ArrowRightCircle className="w-5 h-5" /> Tap to rate
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Edit3 className="w-4 h-4" /> Edit this Listing
+                  <div className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-blue-600">
+                    <Edit3 className="w-5 h-5" /> Edit this Listing
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4" /> {listing.socialMedia.website || "No website"}
+                  <div className="flex items-center gap-3">
+                    <Globe className="w-5 h-5 text-blue-500" />{" "}
+                    {listing.socialMedia.website || "No website"}
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
-                  <ChevronDown className="w-4 h-4" /> Follow us
+                {/* Follow Us */}
+                <div className="pt-3 mt-3 border-t flex items-center gap-2 text-sm text-gray-600">
+                  <ChevronDown className="w-5 h-5 text-blue-500" /> Follow us
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
-                  GSTIN: 21AHAPP9958P1ZM
-                </p>
+
+                {/* GST */}
+                <p className="text-xs text-gray-500 mt-2">GSTIN: 21AHAPP9958P1ZM</p>
               </div>
 
-              {/* Form */}
-              <div className="border rounded-xl p-5 shadow-sm bg-white">
-                <h3 className="font-semibold text-gray-800 mb-3">
+              {/* Lead Form */}
+              <div className="border rounded-2xl p-6 shadow-sm bg-white">
+                <h3 className="font-semibold text-gray-800 mb-3 text-lg">
                   Get the list of best{" "}
                   <span className="text-blue-600">Cap Retailers</span>
                 </h3>
                 <input
                   type="text"
                   placeholder="Name*"
-                  className="w-full border rounded-md p-2 text-sm mb-2 focus:ring-2 focus:ring-blue-400 outline-none"
+                  className="w-full border rounded-md p-2.5 text-sm mb-3 focus:ring-2 focus:ring-blue-400 outline-none"
                 />
                 <input
                   type="text"
                   placeholder="Mobile Number*"
-                  className="w-full border rounded-md p-2 text-sm mb-3 focus:ring-2 focus:ring-blue-400 outline-none"
+                  className="w-full border rounded-md p-2.5 text-sm mb-4 focus:ring-2 focus:ring-blue-400 outline-none"
                 />
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-medium text-sm flex justify-center items-center gap-1">
-                  Best Deal <ArrowRight className="w-4 h-4" />
+                <button className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2.5 rounded-md font-medium text-sm flex justify-center items-center gap-2">
+                  Best Deal <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
+
+          </div>
+
+          <div className="flex justify-center lg:mb-10">
+            <SimilarProducts category={listing.category} />
           </div>
         </div>
+
       </div>
     </>
   );

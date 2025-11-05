@@ -158,7 +158,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         <>
           <Separator />
           <div className="mt-auto px-4 py-3 text-center text-xs text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} contact
+            © {new Date().getFullYear()} Safe Way
           </div>
         </>
       )}

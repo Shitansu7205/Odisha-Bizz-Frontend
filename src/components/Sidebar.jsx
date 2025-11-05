@@ -61,9 +61,9 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xl font-bold text-[#5156be]"
+            className="flex justify-center"
           >
-            BizPanel
+            <img src="/images/logo.png" alt="logo" className="w-[50%]"/>
           </motion.h1>
         )}
         {/* <button
@@ -91,7 +91,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                     : setActiveTab(link.name)
                 }
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${activeTab === link.name
-                  ? "bg-[#5156be] text-white shadow-md"
+                  ? "bg-[#001846] text-white shadow-md"
                   : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                   }`}
               >
@@ -124,7 +124,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                         <button
                           onClick={() => setActiveTab(sub.name)}
                           className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition ${activeTab === sub.name
-                            ? "bg-[#5156be]/10 text-[#5156be] font-medium"
+                            ? "bg-[#001846]/10 text-[#001846] font-medium"
                             : "text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
                             }`}
                         >

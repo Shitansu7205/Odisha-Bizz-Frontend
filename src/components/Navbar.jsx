@@ -474,6 +474,7 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link
                       to="/admin/dashboard"
+                      target="_blank"
                       className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <User className="w-4 h-4" /> My Dashboard
@@ -483,6 +484,7 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link
                       to="/admin/reset-password"
+                      target="_blank"
                       className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" /> Reset Password
@@ -493,6 +495,7 @@ const Navbar = () => {
 
                   <DropdownMenuItem
                     onClick={handleLogout}
+                    target="_blank"
                     className="flex items-center gap-2 text-red-600 hover:text-red-700 cursor-pointer"
                   >
                     <LogOut className="w-4 h-4" /> Logout

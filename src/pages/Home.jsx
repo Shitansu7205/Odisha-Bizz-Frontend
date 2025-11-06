@@ -4,7 +4,7 @@ import Gallery from '@/components/Gallery'
 import React from 'react'
 import WhyChooseUs from '@/components/Whyus'
 import FeaturedServices from '@/components/FeaturedServices'
-// import BusinessListingForm from '@/components/BuisnessListingForm'
+import Cta from '@/components/Cta'
 
 const Home = () => {
     return (
@@ -13,9 +13,10 @@ const Home = () => {
             <HeroSection />
             <Gallery />
             <FeaturedServices />
+            <Cta />
             <WhyChooseUs />
             {/* <BusinessListingForm /> */}
-        
+
         </>
     )
 }

@@ -27,6 +27,8 @@ import { useEffect, useState } from "react";
 import CommentSection from "../components/CommentSection";
 import SimilarProducts from "../components/SimilarProducts";
 import Loader from "@/components/Loader";
+import SocialShare from "../components/SocialShare";
+import DealPopup from "../components/DealPopup";
 
 export default function VenueDetails() {
   const API = import.meta.env.VITE_BACKEND_API_URL;
@@ -108,19 +110,29 @@ export default function VenueDetails() {
             {/* LEFT SIDE CONTENT */}
             <div className="lg:col-span-2 space-y-5">
               {/* Header */}
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <h1 className="text-3xl font-semibold text-gray-900">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+                {/* Title */}
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-snug">
                   {listing.title}
                 </h1>
-                <div className="flex gap-2 mt-3 md:mt-0">
-                  <button className="border rounded-md px-3 py-1 text-sm flex items-center gap-1 hover:bg-gray-100">
+                <div className="relative group">
+                  {/* Main Share Button */}
+                  <button className="flex items-center gap-1 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-all duration-200">
                     <Share2 className="w-4 h-4" /> Share
                   </button>
-                  <button className="border rounded-md px-3 py-1 text-sm flex items-center gap-1 hover:bg-gray-100">
-                    <Edit3 className="w-4 h-4" /> Edit
-                  </button>
+
+                  {/* Social icons - visible on hover */}
+                  <div className="absolute top-full mt-2 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50 bg-white border border-gray-200 rounded-lg shadow p-2">
+                    <SocialShare
+                      title={listing.title}
+                      url={`http://localhost:5173/listing-details/${listing.slug}`}
+                    />
+                  </div>
                 </div>
+
               </div>
+
+
 
               {/* Rating Section */}
               <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -416,6 +428,7 @@ export default function VenueDetails() {
         </div>
 
       </div>
+              <DealPopup />
     </>
   );
 }

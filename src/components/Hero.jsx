@@ -18,7 +18,7 @@ const HeroSection = () => {
             >
                 <source src="/videos/banner-vedio.mp4" type="video/mp4" />
                 {/* fallback image */}
-                <img src="/images/business-background.jpg" alt="Background" />
+                <img src="/images/business-background.jpg" alt="Background"  loading="lazy"/>
             </video>
             <div className="absolute inset-0 bg-black/50"></div> {/* Slight black overlay */}
 

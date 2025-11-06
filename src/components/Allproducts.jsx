@@ -189,6 +189,7 @@ const ListingsSection = () => {
                                             }
                                             alt={listing.title}
                                             className="h-full w-full object-cover"
+                                             loading="lazy"
                                         />
 
 
@@ -591,6 +592,7 @@ const ListingsSection = () => {
                                                 src={selectedListing.imageUrl}
                                                 alt="Current"
                                                 className="w-32 h-32 rounded-md object-cover mb-2 border"
+                                                 loading="lazy"
                                             />
                                         )}
 

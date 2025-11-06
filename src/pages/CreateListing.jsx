@@ -183,6 +183,7 @@ const ProductListingForm = () => {
                         src="https://illustrations.popsy.co/gray/product-launch.svg"
                         alt="Listing Illustration"
                         className="w-4/5 h-auto"
+                         loading="lazy"
                     />
                 </div>
 
@@ -218,6 +219,7 @@ const ProductListingForm = () => {
                                     src={URL.createObjectURL(image)}
                                     alt="Preview"
                                     className="w-32 h-32 rounded-xl object-cover border border-gray-200 shadow-sm"
+                                     loading="lazy"
                                 />
                             </div>
                         )}

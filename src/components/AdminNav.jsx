@@ -49,6 +49,7 @@ const AdminHeader = ({ activeTab }) => {
         <img
           src="https://flagcdn.com/w20/in.png"
           alt="India Flag"
+           loading="lazy"
           className="w-6 h-4 rounded-sm border"
         />
 
@@ -116,6 +117,7 @@ const AdminHeader = ({ activeTab }) => {
               <img
                 src="https://ui-avatars.com/api/?name=Admin&background=5156be&color=fff"
                 alt="Profile"
+                 loading="lazy"
                 className="w-9 h-9 rounded-full border"
               />
             </button>

@@ -122,6 +122,7 @@ const CategoryPage = () => {
                 <img
                     src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
                     alt="Background Image"
+                    loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
 
@@ -152,6 +153,7 @@ const CategoryPage = () => {
                                 <img
                                     src="/images/data-not-found.png"
                                     alt="No products"
+                                    loading="lazy"
                                     className="w-40 h-40 mb-4 opacity-80"
                                 />
                                 <h3 className="text-lg font-semibold text-gray-800">No products found</h3>
@@ -175,6 +177,7 @@ const CategoryPage = () => {
                                         }
                                         alt={product.title || "Product image"}
                                         className="w-full h-76 object-cover rounded-lg"
+                                        loading="lazy"
                                     />
 
                                     <div className="p-6 space-y-5">
@@ -363,6 +366,7 @@ const CategoryPage = () => {
                                                     : "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
                                             }
                                             alt={b.title}
+                                            loading="lazy"
                                             className="w-18 h-18 object-cover rounded-full border-2 border-blue-100"
                                         />
                                         <div className="absolute inset-0 rounded-full bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

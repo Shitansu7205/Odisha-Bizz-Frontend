@@ -21,6 +21,7 @@ export default function InstaVideoGrid() {
           <img
             src={vid.thumbnail}
             alt="Video Thumbnail"
+             loading="lazy"
             className="w-full h-60 object-cover group-hover:scale-110 transition-all duration-500"
           />
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">

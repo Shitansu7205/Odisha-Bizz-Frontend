@@ -103,6 +103,7 @@ function HoverCard({ title, desc, img, height, url }) {
                 <img
                     src={img}
                     alt={title}
+                     loading="lazy"
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                 />
 

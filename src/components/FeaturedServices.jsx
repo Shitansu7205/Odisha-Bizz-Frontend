@@ -211,8 +211,9 @@ export default function FeaturedServices() {
                                         src={service.image}
                                         alt={service.title}
                                         className="w-full h-48 object-cover"
+                                         loading="lazy"
                                     />
-                                    <CardContent className="p-5 flex flex-col h-56 justify-between mt-[-20px]">
+                                    <CardContent className="p-5 flex flex-col h-56 justify-between -mt-5">
                                         <div>
                                             <div className="flex items-center gap-2 mb-2 mt-0">
                                                 {service.icon}

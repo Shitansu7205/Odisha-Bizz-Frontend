@@ -13,6 +13,7 @@ const Category = () => {
           src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
           alt="Background Image"
           className="absolute inset-0 w-full h-full object-cover"
+           loading="lazy"
         />
         <div className="absolute inset-0 bg-black/50" />
 

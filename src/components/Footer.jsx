@@ -39,6 +39,7 @@ const Footer = () => {
             src="/images/logo.png"
             alt="Odisha Bizz"
             className="h-12 object-contain"
+             loading="lazy"
           />
           <p className="text-gray-200 text-sm">
             Lorem Ipsum is simply dummy text of the printing and typesetting

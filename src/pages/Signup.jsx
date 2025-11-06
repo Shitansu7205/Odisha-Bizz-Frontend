@@ -117,6 +117,7 @@ export default function Signup() {
                                 src="/images/logo.png"
                                 alt="Logo"
                                 className="w-full h-10 object-contain animate-fade-in"
+                                 loading="lazy"
                             />
 
                         </div>
@@ -289,16 +290,19 @@ export default function Signup() {
                                     src="/images/facebook_icons.png"
                                     alt="Slack"
                                     className="w-10 h-10 bg-white rounded-full p-2"
+                                     loading="lazy"
                                 />
                                 <img
                                     src="/images/Google__G__logo.png"
                                     alt="Google"
                                     className="w-10 h-10 bg-white rounded-full p-2"
+                                     loading="lazy"
                                 />
                                 <img
                                     src="/images/github_icons.png"
                                     alt="Google"
                                     className="w-10 h-10 bg-white rounded-full p-2"
+                                     loading="lazy"
                                 />
                             </div>
 

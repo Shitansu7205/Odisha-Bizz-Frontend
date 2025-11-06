@@ -380,11 +380,13 @@ const Navbar = () => {
             <img
               src="/images/logo.png"
               alt="Odisha Bizz"
+               loading="lazy"
               className="h-[50px] w-[140px] object-contain hidden sm:block"
             />
             <img
               src="/images/logo.png"
               alt="Odisha Bizz"
+               loading="lazy"
               className="h-10 object-contain sm:hidden"
             />
           </Link>

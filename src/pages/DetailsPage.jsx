@@ -77,6 +77,7 @@ export default function VenueDetails() {
             <img
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
               alt="Main"
+              loading="lazy"
               className="md:col-span-2 lg:col-span-3 h-72 md:h-97 object-cover w-full"
             />
             <div className="grid grid-cols-2 grid-rows-2 gap-1">
@@ -89,6 +90,7 @@ export default function VenueDetails() {
                   key={i}
                   src={src}
                   alt=""
+                  loading="lazy"
                   className="object-cover h-36 md:h-48 w-full"
                 />
               ))}
@@ -96,6 +98,7 @@ export default function VenueDetails() {
                 <img
                   src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
                   alt=""
+                  loading="lazy"
                   className="object-cover w-full h-full"
                 />
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-lg font-semibold">
@@ -254,6 +257,7 @@ export default function VenueDetails() {
                             src={comment.user?.avatar || "/images/users.png"}
                             alt={comment.user?.name}
                             className="w-12 h-12 rounded-full object-cover border"
+                            loading="lazy"
                           />
                           <div>
                             <h3 className="font-semibold text-gray-900">
@@ -428,7 +432,7 @@ export default function VenueDetails() {
         </div>
 
       </div>
-              <DealPopup />
+      <DealPopup />
     </>
   );
 }

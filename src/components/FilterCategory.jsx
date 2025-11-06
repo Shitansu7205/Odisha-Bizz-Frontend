@@ -157,6 +157,7 @@ const FilterCategory = () => {
                                     <img
                                         src={listing.imageUrl}
                                         alt={listing.title}
+                                         loading="lazy"
                                         className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>

@@ -136,6 +136,7 @@ export default function ListPropertyPopup() {
                                         src="/images/trial-img.png"
                                         alt="Listing Illustration"
                                         className="w-90 h-90 object-contain"
+                                         loading="lazy"
                                     />
                                 </div>
                             </div>

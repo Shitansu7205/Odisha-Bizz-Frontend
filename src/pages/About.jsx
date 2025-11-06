@@ -24,6 +24,7 @@ const About = () => {
                 <img
                     src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
                     alt="Background Image"
+                    loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/50" />
@@ -51,6 +52,7 @@ const About = () => {
                     <div className="w-full md:w-1/2">
                         <img
                             src="/images/about-1st.jpg"
+                             loading="lazy"
                             alt="Odisha Bizz team working"
                             className="rounded-xl shadow-lg w-full object-cover"
                         />

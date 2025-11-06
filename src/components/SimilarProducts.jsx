@@ -65,6 +65,7 @@ const SimilarProducts = ({ category }) => {
                                 <img
                                     src={item.imageUrl || "https://via.placeholder.com/300x200"}
                                     alt={item.title}
+                                     loading="lazy"
                                     className="w-full h-44 object-cover rounded-t-2xl"
                                 />
                                 <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded-full">

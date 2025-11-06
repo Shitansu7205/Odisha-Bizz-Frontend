@@ -64,7 +64,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
             className="flex justify-center"
           >
-            <a href="/"><img src="/images/logo.png" alt="logo" className="w-[50%]" /></a>
+            <a href="/"><img src="/images/logo.png" alt="logo" className="w-[50%]"  loading="lazy"/></a>
 
        
             

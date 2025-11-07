@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 
 export default function SearchHeader() {
+  const API = import.meta.env.VITE_BACKEND_API_URL;
   const [params] = useSearchParams();
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ export default function SearchHeader() {
       if (!q || !district) return setSuggestions([]);
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/auth/search-suggestions?q=${q}&district=${district}`
+          `${API}/search-suggestions?q=${q}&district=${district}`
         );
         setSuggestions(res.data.suggestions || []);
       } catch (err) {

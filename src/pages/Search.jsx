@@ -6,6 +6,7 @@ export default function SearchForm() {
   const [district, setDistrict] = useState("");
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const API = import.meta.env.VITE_BACKEND_API_URL;
 
   // Debounced fetch function
   const fetchSuggestions = useCallback(
@@ -13,7 +14,7 @@ export default function SearchForm() {
       if (!q || !district) return setSuggestions([]);
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/auth/search-suggestions?q=${q}&district=${district}`
+          `${API}/search-suggestions?q=${q}&district=${district}`
         );
         setSuggestions(res.data.suggestions);
       } catch (err) {

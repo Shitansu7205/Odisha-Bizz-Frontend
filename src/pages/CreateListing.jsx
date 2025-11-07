@@ -27,7 +27,7 @@ const ProductListingForm = () => {
         email: "",
         phone: "",
         address: {
-            city: "",
+            district: "",
             state: "",
             pincode: "",
         },
@@ -159,7 +159,7 @@ const ProductListingForm = () => {
                 category: "",
                 email: "",
                 phone: "",
-                address: { city: "", state: "", pincode: "" },
+                address: { district: "", state: "", pincode: "" },
                 socialMedia: { facebook: "", instagram: "", twitter: "", linkedin: "", website: "" },
             });
             setImage(null);
@@ -326,7 +326,7 @@ const ProductListingForm = () => {
                                             address: {
                                                 ...prev.address,
                                                 state: selected,
-                                                city: "",
+                                                district: "",
                                             },
                                         }))
                                     }}
@@ -348,11 +348,11 @@ const ProductListingForm = () => {
                             {/* District Dropdown */}
                             <div>
                                 <Select
-                                    value={formData.address.city || ""}
+                                    value={formData.address.district || ""}
                                     onValueChange={(district) =>
                                         setFormData((prev) => ({
                                             ...prev,
-                                            address: { ...prev.address, city: district },
+                                            address: { ...prev.address, district: district },
                                         }))
                                     }
                                     disabled={districts.length === 0}

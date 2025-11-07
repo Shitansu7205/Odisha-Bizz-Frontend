@@ -21,6 +21,8 @@ import Category from "./pages/Category";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import DetailsPage from "./pages/DetailsPage";
+import SearchForm from "./pages/Search";
+import Result from "./pages/Result";
 
 
 function AppWrapper() {
@@ -53,6 +55,8 @@ function AppWrapper() {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/demo" element={<Demo />} />
+          <Route path="/search" element={<SearchForm />} />
+          <Route path="/results" element={<Result />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ScrollToTopButton />

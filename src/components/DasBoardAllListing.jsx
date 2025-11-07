@@ -235,7 +235,7 @@ const AllListings = () => {
 
                                             <CardDescription className="flex flex-wrap items-center gap-2 text-gray-600">
                                                 <Badge variant="outline">{listing.category}</Badge>
-                                                <Badge variant="outline">{listing.address?.city}</Badge>
+                                                <Badge variant="outline">{listing.address?.district}</Badge>
                                             </CardDescription>
                                         </CardHeader>
 
@@ -422,18 +422,18 @@ const AllListings = () => {
                                 {/* Address Section */}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                     <div className="flex flex-col">
-                                        <Label htmlFor="city" className="mb-1">City</Label>
+                                        <Label htmlFor="district" className="mb-1">district</Label>
                                         <Input
-                                            id="city"
-                                            name="city"
-                                            value={selectedListing.address?.city || ""}
+                                            id="district"
+                                            name="district"
+                                            value={selectedListing.address?.district || ""}
                                             onChange={(e) =>
                                                 setSelectedListing({
                                                     ...selectedListing,
-                                                    address: { ...selectedListing.address, city: e.target.value },
+                                                    address: { ...selectedListing.address, district: e.target.value },
                                                 })
                                             }
-                                            placeholder="City"
+                                            placeholder="district"
                                         />
                                     </div>
 

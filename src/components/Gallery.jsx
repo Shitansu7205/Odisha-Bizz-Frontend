@@ -8,31 +8,31 @@ const cards = [
         title: "Real Estate",
         desc: "Smart investments and housing innovations.",
         img: "/images/real-estate.jpg",
-        url: "/category/Real%20Estate"
+        url: "/category?category=Real%20Estate"
     },
     {
         title: "Healthcare",
         desc: "Modern technologies transforming patient care.",
         img: "/images/healthcare.jpg",
-        url: "/category/Healthcare"
+        url: "/category?category=Healthcare"
     },
     {
         title: "Finance",
         desc: "Empowering financial inclusion.",
         img: "/images/Finance_Banking.jpg",
-        url: "/category/Finance%20&%20Banking"
+        url: "/category?category=Finance%20&%20Banking"
     },
     {
         title: "E-Commerce",
         desc: "Revolutionizing digital shopping.",
         img: "/images/Retail_E-commerce.jpg",
-        url: "/category/Retail%20&%20E-commerce"
+        url: "/category?category=Retail%20&%20E-commerce"
     },
     {
         title: "Hospitality",
         desc: "Innovating guest experiences worldwide.",
         img: "/images/Hospitality_Tourism.jpg",
-        url: "/category/Hospitality%20&%20Tourism"
+        url: "/category?category=Hospitality%20&%20Tourism"
     },
 ];
 

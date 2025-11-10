@@ -231,7 +231,7 @@ export default function FeaturedServices() {
                                             Learn More
                                         </Button> */}
                                         <Link
-                                            to={`/category/${service.title}`}
+                                            to={`/category?category=${service.title}`}
                                             className="bg-[#249732] hover:bg-green-700 text-white rounded-full px-5 py-1.5 mt-4 text-center text-sm font-bold"
                                         >
                                             Learn More

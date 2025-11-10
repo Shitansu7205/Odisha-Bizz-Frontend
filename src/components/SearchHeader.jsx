@@ -83,7 +83,7 @@ export default function SearchHeader() {
         {/* --- Left Column --- */}
         <div className="flex flex-col gap-1">
           {/* Breadcrumb */}
-          <Breadcrumb>
+          {/* <Breadcrumb>
             <BreadcrumbList className="flex flex-wrap gap-1 text-xs md:text-sm">
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
@@ -98,7 +98,7 @@ export default function SearchHeader() {
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
                       <Link
-                        to={`/results?district=${district}`}
+                        to={`/results?district=${district}&category=${query}`}
                         className="capitalize text-gray-700 hover:text-blue-600"
                       >
                         {district}
@@ -114,7 +114,17 @@ export default function SearchHeader() {
                 </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
-          </Breadcrumb>
+          </Breadcrumb> */}
+          <h3 className="text-2xl font-bold text-gray-900  flex items-center gap-2">
+            <span className="relative">
+              <span className="relative z-10">
+                Top 10 {" "}
+                <span className="text-green-600">{query}</span> in{" "}
+                <span className="text-blue-500">{district}</span>
+              </span>
+              {/* <span className="absolute bottom-0 left-0 w-full h-2 bg-yellow-200 rounded-md opacity-50"></span> */}
+            </span>
+          </h3>
         </div>
 
         {/* --- Right Column: Search Form --- */}

@@ -52,7 +52,7 @@ function AppWrapper() {
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/listing/create" element={<CreateListing />} />
           <Route path="/listing-details/:slug" element={<DetailsPage />} />
-          <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <Route path="/category" element={<CategoryPage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/search" element={<SearchForm />} />

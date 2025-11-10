@@ -136,7 +136,7 @@ export default function ServiceCards() {
                   <div className="mt-6 flex justify-end">
 
                     <Link
-                      to={`/category/${service.title}`}
+                      to={`/category?category=${service.title}`}
                       className="flex items-center gap-2 bg-[#249732] hover:bg-green-600 text-white rounded-full px-5 py-2 shadow-md transition-all duration-300"
                     >
                       More <ArrowRight className="w-4 h-4" />

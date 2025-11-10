@@ -261,7 +261,7 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 
-import SearchHeader from "../components/SearchHeader"
+import SearchHeader from "../components/SearchHeader";
 
 export default function ResultsPage() {
   const [params] = useSearchParams();
@@ -310,7 +310,7 @@ export default function ResultsPage() {
   };
   return (
     <>
-  <SearchHeader />
+      <SearchHeader />
 
       <div className="flex flex-col md:flex-row gap-10 py-8 px-18 w-full min-h-screen bg-gray-100">
         {/* Main Listings */}

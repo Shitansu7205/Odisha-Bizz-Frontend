@@ -485,7 +485,7 @@ const Navbar = () => {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      to="/admin/reset-password"
+                      to="/admin/forgot-password"
                       className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" /> Reset Password
@@ -613,7 +613,7 @@ const Navbar = () => {
 
                       <DropdownMenuItem asChild>
                         <Link
-                          to="/reset-password"
+                          to="/admin/forgot-password"
                           onClick={() => handleMenuClick("/reset-password")}
                           className="flex items-center gap-2 text-gray-700 hover:text-[#b6985a]"
                         >

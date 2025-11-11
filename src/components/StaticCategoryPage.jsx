@@ -21,7 +21,7 @@ const services = [
     title: "Finance & Banking",
     description: "Smart solutions for your financial growth.",
 
-    image: "images/Finance_Banking.jpg",
+    image: "images/Finance_Banking.webp",
     link: "/finance",
   },
   {
@@ -42,7 +42,7 @@ const services = [
     title: "Manufacturing & Industrial",
     description: "Powering progress through innovation and efficiency.",
 
-    image: "/images/manufacturing.jpg",
+    image: "/images/manufacturing.webp",
     link: "/manufacturing",
   },
   {
@@ -56,7 +56,7 @@ const services = [
     title: "Transportation & Logistics",
     description: "Delivering efficiency across every mile.",
 
-    image: "/images/Transportation_Logistics.jpg",
+    image: "/images/Transportation_Logistics.webp",
     link: "/transportation",
   },
   {
@@ -70,14 +70,14 @@ const services = [
     title: "Agriculture & Food",
     description: "Cultivating growth from farm to table.",
 
-    image: "/images/Agriculture_Food.jpg",
+    image: "/images/Agriculture_Food.webp",
     link: "/agriculture",
   },
   {
     title: "Jewellery",
     description: "Crafting elegance that defines your style.",
 
-    image: "/images/jewellery.jpg",
+    image: "/images/jewellery.webp",
     link: "/jewellery",
   },
   {
@@ -99,7 +99,6 @@ const services = [
 export default function ServiceCards() {
   return (
     <>
-
       <div className="w-full py-16 px-6 bg-linear-to-b from-white flex justify-center">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl w-full">
           {services.map((service, idx) => (
@@ -118,7 +117,7 @@ export default function ServiceCards() {
                   <img
                     src={service.image}
                     alt={service.title}
-                     loading="lazy"
+                    loading="lazy"
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -134,7 +133,6 @@ export default function ServiceCards() {
                   </div>
 
                   <div className="mt-6 flex justify-end">
-
                     <Link
                       to={`/category?category=${service.title}`}
                       className="flex items-center gap-2 bg-[#249732] hover:bg-green-600 text-white rounded-full px-5 py-2 shadow-md transition-all duration-300"
@@ -149,6 +147,5 @@ export default function ServiceCards() {
         </div>
       </div>
     </>
-
   );
 }

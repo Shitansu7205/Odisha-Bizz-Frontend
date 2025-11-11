@@ -45,7 +45,7 @@ export const services = [
         description: "Smart solutions for your financial growth.",
         author: "Lorem Ipsum",
         icon: <Banknote className="w-5 h-5 text-[#249732]" />,
-        image: "/images/Finance_Banking.jpg",
+        image: "/images/Finance_Banking.webp",
         link: "/finance",
     },
     {
@@ -69,7 +69,7 @@ export const services = [
         description: "Powering progress through innovation and efficiency.",
         author: "Lorem Ipsum",
         icon: <Factory className="w-5 h-5 text-[#249732]" />,
-        image: "/images/manufacturing.jpg",
+        image: "/images/manufacturing.webp",
         link: "/manufacturing",
     },
     {
@@ -85,7 +85,7 @@ export const services = [
         description: "Delivering efficiency across every mile.",
         author: "Lorem Ipsum",
         icon: <Truck className="w-5 h-5 text-[#249732]" />,
-        image: "/images/Transportation_Logistics.jpg",
+        image: "/images/Transportation_Logistics.webp",
         link: "/transportation",
     },
     {
@@ -101,7 +101,7 @@ export const services = [
         description: "Cultivating growth from farm to table.",
         author: "Lorem Ipsum",
         icon: <Leaf className="w-5 h-5 text-[#249732]" />,
-        image: "/images/Agriculture_Food.jpg",
+        image: "/images/Agriculture_Food.webp",
         link: "/agriculture",
     },
     

@@ -15,7 +15,7 @@ const slides = [
     title: "Grow Your Business Smarter",
     subtitle: "Trusted Vendors & Partners",
     btnText: "Explore Opportunities",
-    img: "/images/Finance_Banking.jpg",
+    img: "/images/Finance_Banking.webp",
   },
   {
     title: "Connect. Discover. Expand.",
@@ -35,7 +35,7 @@ const categories = [
   {
     title: "Finance & Banking",
     desc: "Financial Services, Loans & Advisors",
-    img: "/images/Finance_Banking.jpg",
+    img: "/images/Finance_Banking.webp",
     link: "/category/finance",
   },
   {

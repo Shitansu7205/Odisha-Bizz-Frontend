@@ -34,7 +34,7 @@ const ScrollToTopButton = () => {
           exit={{ opacity: 0, scale: 0.5 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full shadow-lg bg-green-600 hover:bg-green-700 transition-all duration-300"
+          className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-12 h-12 rounded-full shadow-lg bg-green-600 hover:bg-green-700 transition-all duration-300"
         >
           {/* Circular Progress Ring */}
           <svg className="absolute w-12 h-12 -rotate-90">

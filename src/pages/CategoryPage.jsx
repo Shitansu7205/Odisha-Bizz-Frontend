@@ -497,14 +497,8 @@ export default function CategoryPage() {
       {loading && <Loader />}
 
       {/* --- Top Section --- */}
-      <div className="px-6 md:px-8 mb-0 flex flex-col md:flex-row items-center justify-between gap-4 z-40 transition-all duration-300  w-full bg-gray-100 py-2 shadow-md ">
-        {/* <div
-        className={`px-6 md:px-8 mb-0 flex flex-col md:flex-row items-center justify-between gap-4 z-40 transition-all duration-300 ${
-          isSticky
-            ? "fixed top-16 left-0 w-full bg-white py-2 shadow-md border-b border-gray-200"
-            : "relative bg-gray-100 py-4"
-        }`}
-      > */}
+      <div className="px-6 md:px-16 mb-0 flex flex-col md:flex-row items-center justify-between gap-4 z-40 transition-all duration-300  w-full bg-gray-100 py-2 shadow-md ">
+       
         {/* Left: Title */}
         <h2
           className={`transition-all duration-300 text-gray-900 font-bold ${
@@ -516,8 +510,8 @@ export default function CategoryPage() {
         </h2>
 
         {/* Right: District Select + Button */}
-        <div className="flex items-center gap-2">
-          <Select value={selectedDistrict} onValueChange={setSelectedDistrict}>
+        <div className="flex items-center gap-2  ">
+          <Select value={selectedDistrict} onValueChange={setSelectedDistrict} >
             <SelectTrigger
               className={`transition-all duration-300 w-40 h-9 ${
                 isSticky ? "text-sm" : "text-sm md:text-base h-10"
@@ -543,10 +537,23 @@ export default function CategoryPage() {
             }`}
             onClick={handleFilter}
           >
-            Filter
+          Your District
           </Button>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="flex flex-col md:flex-row gap-10 py-4 px-14 w-full min-h-screen bg-gray-100">
         {/* Main Listings */}
@@ -773,7 +780,7 @@ export default function CategoryPage() {
 
         {/* Sidebar */}
         <aside className="w-full md:w-72 mt-8 md:mt-0">
-          <div className="md:sticky md:top-28 flex flex-col gap-6">
+          <div className="md:sticky md:top-18 flex flex-col gap-6">
             {/* Related */}
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">

@@ -52,7 +52,7 @@ const categories = [
   },
 ];
 
-export default function BusinessShowcase() {
+export default function HomeBanner() {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export default function BusinessShowcase() {
   }, [playing]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 p-4 bg-gray-50">
+    <div className="flex flex-col md:flex-row gap-4 p-4 md:pl-18 md:pr-18 md:pb-7 ">
       {/* LEFT: Slider */}
       <div className="relative w-full md:w-2/3 h-64 md:h-96 rounded-2xl overflow-hidden shadow-md">
         {slides.map((slide, idx) => (

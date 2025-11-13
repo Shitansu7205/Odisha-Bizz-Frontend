@@ -20,7 +20,7 @@ export default function ProfilePage() {
 
   const handleSave = () => {
     // save API call here
-    console.log("Profile Saved:", profile);
+    // console.log("Profile Saved:", profile);
   };
 
   return (

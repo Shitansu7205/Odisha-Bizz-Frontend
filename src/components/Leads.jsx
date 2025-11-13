@@ -36,7 +36,7 @@ export default function Leads() {
         );
         setLeads(sortedLeads);
       } catch (error) {
-        console.error("❌ Error fetching leads:", error);
+        // console.error("❌ Error fetching leads:", error);
       }
     };
 

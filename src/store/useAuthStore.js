@@ -14,9 +14,9 @@ const useAuthStore = create((set) => ({
         } catch (error) {
             set({ isAuthenticated: false });
             if (error.response?.status === 401) {
-                console.warn("⚠️ User not authenticated");
+                // console.warn("⚠️ User not authenticated");
             } else {
-                console.error("❌ Auth check failed:", error.message);
+                // console.error("❌ Auth check failed:", error.message);
             }
         }
     },

@@ -1,724 +1,114 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Pencil, Trash2, Filter, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { toast } from "react-toastify";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetFooter,
-  SheetClose,
-} from "@/components/ui/sheet";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
 
-// ❌ You forgot these imports:
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Loader from "@/components/Loader";
+const COLORS = ["#5156be", "#34d399", "#facc15", "#f87171", "#a855f7"];
 
-const Test = () => {
+export default function AnalyticsDashboard() {
+  const [analytics, setAnalytics] = useState(null);
   const API = import.meta.env.VITE_BACKEND_API_URL;
 
-  const [listings, setListings] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedListing, setSelectedListing] = useState(null);
-  const [status, setStatus] = useState("");
-  const [stateFilter, setStateFilter] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  // Fetch function
-  const fetchData = async (cat = "", statusVal = "", stateVal = "") => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${API}/test`, {
-        params: {
-          category: cat.toLowerCase(),
-          status: statusVal.toLowerCase(),
-          state: stateVal.toLowerCase(),
-        },
-      });
-      setListings(res.data.listings || []);
-    } catch (error) {
-      console.error("Error fetching listings:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    const fetchAnalytics = async () => {
+      try {
+        const res = await axios.get(`${API}/analytics-dashboard`, {
+          withCredentials: true,
+        });
+        if (res.data.success) setAnalytics(res.data.data);
+      } catch (err) {
+        console.error("Error fetching analytics:", err);
+      }
+    };
+    fetchAnalytics();
   }, []);
 
-  const handleSearch = () => {
-    fetchData(selectedCategory, status, stateFilter);
-  };
-
-  // 🟢 Fix: open sheet and set listing data
-  const handleEditClick = (listing) => {
-    setSelectedListing(listing);
-    setOpen(true);
-  };
-
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const {
-        _id,
-        title,
-        description,
-        category,
-        email,
-        phone,
-        address,
-        socialMedia,
-        status,
-        image,
-      } = selectedListing;
-
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description);
-      formData.append("category", category);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("status", status);
-      formData.append("address", JSON.stringify(address));
-      formData.append("socialMedia", JSON.stringify(socialMedia));
-
-      if (image) formData.append("image", image);
-
-      const response = await axios.put(
-        `${API}/update-listings/${_id}`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-          withCredentials: true,
-        }
-      );
-
-      if (response.status === 200) {
-        toast.success("Listing updated successfully!");
-        setOpen(false);
-        fetchData();
-      } else {
-        toast.error(response.data?.message || "Failed to update listing");
-      }
-    } catch (error) {
-      console.error("❌ Error updating listing:", error);
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const res = await axios.delete(`${API}/delete-listings/${id}`, {
-        withCredentials: true,
-      });
-      if (res.status === 200) {
-        toast.success("Listing deleted successfully!");
-        fetchData();
-      }
-    } catch (err) {
-      console.error("Error deleting listing:", err);
-      toast.error("Failed to delete listing.");
-    }
-  };
-
-  const handleChange = (e) => {
-    setSelectedListing({
-      ...selectedListing,
-      [e.target.name]: e.target.value,
-    });
-  };
+  if (!analytics)
+    return (
+      <p className="text-center py-10 text-gray-500">Loading analytics...</p>
+    );
 
   return (
-    <div className="p-6 bg-linear-to-br from-slate-50 to-blue-50 min-h-screen">
-      <Card className="shadow-lg border border-slate-200">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-around mb-6 gap-4">
-          {/* Left: Title */}
-          <CardTitle className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
-            <Filter size={20} className="text-blue-500" />
-            All Listings
-          </CardTitle>
-
-          {/* Right: Filters */}
-          <div className="flex flex-wrap items-center gap-3">
-            {/* Category Filter */}
-            <Select
-              value={selectedCategory}
-              onValueChange={(val) =>
-                setSelectedCategory(val === "all" ? "" : val)
-              }
-            >
-              <SelectTrigger className="w-40 border-slate-300 focus:ring-2 focus:ring-blue-400">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="healthcare">Healthcare</SelectItem>
-                <SelectItem value="jewellery">Jewellery</SelectItem>
-                <SelectItem value="hotel">Hotel</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={status}
-              onValueChange={(val) => setStatus(val === "all" ? "" : val)}
-            >
-              <SelectTrigger className="w-[140px] border-slate-300 focus:ring-2 focus:ring-blue-400">
-                <SelectValue placeholder="All Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={stateFilter}
-              onValueChange={(val) => setStateFilter(val === "all" ? "" : val)}
-            >
-              <SelectTrigger className="w-[140px] border-slate-300 focus:ring-2 focus:ring-blue-400">
-                <SelectValue placeholder="All States" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All States</SelectItem>
-                <SelectItem value="odisha">Odisha</SelectItem>
-                <SelectItem value="delhi">Delhi</SelectItem>
-                <SelectItem value="pune">Pune</SelectItem>
-              </SelectContent>
-            </Select>
-
-            {/* Search Button */}
-            <Button
-              onClick={handleSearch}
-              className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 shadow-sm rounded-md"
-            >
-              <Search size={16} /> Search
-            </Button>
-          </div>
-        </div>
-
-        <CardContent>
-          {/* Table */}
-          {loading ? (
-            <Loader />
-          ) : listings.length === 0 ? (
-            <div className="text-slate-500 text-center mt-10">
-              ❌ No listings found for the selected filters.
-            </div>
-          ) : (
-            <div className="overflow-x-auto rounded-lg border border-slate-200">
-              <Table>
-                <TableCaption className="text-slate-500 text-sm">
-                  List of all available listings.
-                </TableCaption>
-                <TableHeader className="bg-slate-100">
-                  <TableRow className="text-slate-700">
-                    <TableHead className="py-3">No</TableHead>
-                    <TableHead>Image</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>State</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Created At</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                  {listings.map((listing, index) => (
-                    <TableRow
-                      key={listing._id || index}
-                      className="hover:bg-slate-50 transition-colors text-slate-700"
-                    >
-                      <TableCell className="py-2">{index + 1}</TableCell>
-                      <TableCell>
-                        <img
-                          src={
-                            listing.imageUrl ||
-                            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=60"
-                          }
-                          alt={listing.title}
-                          className="w-10 h-10 rounded-md object-cover border border-slate-200"
-                        />
-                      </TableCell>
-                      <TableCell className="font-medium text-slate-800">
-                        {listing.title}
-                      </TableCell>
-                      <TableCell className="capitalize text-slate-600">
-                        {listing.category}
-                      </TableCell>
-                      <TableCell className="capitalize text-slate-600">
-                        {listing.address?.state || "-"}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          className={`capitalize px-3 py-1 rounded-full text-xs font-medium ${
-                            listing.status === "active"
-                              ? "bg-green-100 text-green-700"
-                              : listing.status === "pending"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-red-100 text-red-700"
-                          }`}
-                        >
-                          {listing.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-sm text-slate-500">
-                        {new Date(listing.createdAt).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell className="text-right space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="text-blue-600 border-blue-300 hover:bg-blue-50"
-                          onClick={() => handleEditClick(listing)}
-                        >
-                          <Pencil size={14} /> Edit
-                        </Button>
-
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-red-600 border-red-300 hover:bg-red-50"
-                            >
-                              <Trash2 size={14} /> Delete
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Confirm Deletion
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                Are you sure you want to delete this listing?
-                                This action cannot be undone.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDelete(listing._id)}
-                              >
-                                Yes, Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* ✅ Update Sheet */}
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="w-full max-w-md bg-white">
-          <SheetHeader>
-            <SheetTitle className="text-[#b6985a]">Edit Listing</SheetTitle>
-            <SheetDescription>
-              Update the listing details below and click save when finished.
-            </SheetDescription>
-          </SheetHeader>
-
-          {selectedListing && (
-            <form
-              onSubmit={handleUpdate}
-              className="space-y-5 p-4 mt-4 overflow-y-auto"
-            >
-              {/* Title */}
-              <div className="flex flex-col">
-                <Label htmlFor="title" className="mb-1">
-                  Title
-                </Label>
-                <Input
-                  id="title"
-                  name="title"
-                  value={selectedListing.title}
-                  onChange={handleChange}
-                  placeholder="Enter title"
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Listings by Category */}
+        <Card className="shadow-lg border border-gray-100 rounded-xl">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-[#5156be]">
+              Listings by Category
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={analytics.byCategory}>
+                <XAxis
+                  dataKey="_id"
+                  tick={{ fontSize: 12, fill: "#4b5563" }}
+                  interval={0}
+                  angle={-15}
+                  textAnchor="end"
+                  tickFormatter={(value) => value?.split(" ")[0]} // ✅ show only first word
                 />
-              </div>
-
-              {/* Description */}
-              <div className="flex flex-col">
-                <Label htmlFor="description" className="mb-1">
-                  Description
-                </Label>
-                <Textarea
-                  id="description"
-                  name="description"
-                  value={selectedListing.description}
-                  onChange={handleChange}
-                  rows={4}
-                  placeholder="Enter description"
-                />
-              </div>
-
-              {/* Category */}
-              {/* <div className="flex flex-col">
-                                    <Label htmlFor="category" className="mb-1">Category</Label>
-                                    <Input
-                                        id="category"
-                                        name="category"
-                                        value={selectedListing.category}
-                                        onChange={handleChange}
-                                        placeholder="Enter category (e.g., Restaurant, Travel)"
-                                    />
-                                </div> */}
-              <div className="flex flex-col">
-                <Label htmlFor="v" className="mb-1">
-                  Category
-                </Label>
-                <select
-                  id="category"
-                  name="category"
-                  value={selectedListing.category}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-2 text-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
-                >
-                  <option value="Real Estate">Real Estate</option>
-                  <option value="Healthcare">Healthcare</option>
-                  <option value="Finance & Banking">Finance & Banking</option>
-                  <option value="Retail & E-commerce">
-                    Retail & E-commerce
-                  </option>
-                  <option value="Hospitality & Tourism">
-                    Hospitality & Tourism
-                  </option>
-                  <option value="Manufacturing & Industrial">
-                    Manufacturing & Industrial
-                  </option>
-                  <option value="Energy & Utilities">Energy & Utilities</option>
-                  <option value="Transportation & Logistics">
-                    Transportation & Logistics
-                  </option>
-                  <option value="Media & Entertainment">
-                    Media & Entertainment
-                  </option>
-                  <option value="Agriculture & Food">Agriculture & Food</option>
-                  <option value="Jewellery">Jewellery</option>
-                </select>
-              </div>
-
-              {/* Status */}
-              <div className="flex flex-col">
-                <Label htmlFor="status" className="mb-1">
-                  Status
-                </Label>
-                <select
-                  id="status"
-                  name="status"
-                  value={selectedListing.status}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-2 text-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                </select>
-              </div>
-
-              {/* Phone */}
-              <div className="flex flex-col">
-                <Label htmlFor="phone" className="mb-1">
-                  Phone
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  value={selectedListing.phone}
-                  onChange={handleChange}
-                  placeholder="Enter phone number"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col">
-                <Label htmlFor="email" className="mb-1">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  value={selectedListing.email}
-                  onChange={handleChange}
-                  placeholder="Enter email address"
-                />
-              </div>
-
-              {/* Address Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex flex-col">
-                  <Label htmlFor="district" className="mb-1">
-                    district
-                  </Label>
-                  <Input
-                    id="district"
-                    name="district"
-                    value={selectedListing.address?.district || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        address: {
-                          ...selectedListing.address,
-                          district: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="district"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="state" className="mb-1">
-                    State
-                  </Label>
-                  <Input
-                    id="state"
-                    name="state"
-                    value={selectedListing.address?.state || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        address: {
-                          ...selectedListing.address,
-                          state: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="State"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="pincode" className="mb-1">
-                    Pincode
-                  </Label>
-                  <Input
-                    id="pincode"
-                    name="pincode"
-                    value={selectedListing.address?.pincode || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        address: {
-                          ...selectedListing.address,
-                          pincode: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Pincode"
-                  />
-                </div>
-              </div>
-
-              {/* Social Media Links */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="flex flex-col">
-                  <Label htmlFor="facebook" className="mb-1">
-                    Facebook
-                  </Label>
-                  <Input
-                    id="facebook"
-                    name="facebook"
-                    value={selectedListing.socialMedia?.facebook || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          facebook: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Facebook URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="instagram" className="mb-1">
-                    Instagram
-                  </Label>
-                  <Input
-                    id="instagram"
-                    name="instagram"
-                    value={selectedListing.socialMedia?.instagram || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          instagram: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Instagram URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="twitter" className="mb-1">
-                    Twitter
-                  </Label>
-                  <Input
-                    id="twitter"
-                    name="twitter"
-                    value={selectedListing.socialMedia?.twitter || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          twitter: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Twitter URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="linkedin" className="mb-1">
-                    LinkedIn
-                  </Label>
-                  <Input
-                    id="linkedin"
-                    name="linkedin"
-                    value={selectedListing.socialMedia?.linkedin || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          linkedin: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="LinkedIn URL"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="website" className="mb-1">
-                    Website
-                  </Label>
-                  <Input
-                    id="website"
-                    name="website"
-                    value={selectedListing.socialMedia?.website || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          website: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Website URL"
-                  />
-                </div>
-                {/* Image Upload */}
-                <div className="flex flex-col">
-                  <Label htmlFor="image" className="mb-1">
-                    Upload Image
-                  </Label>
-
-                  {/* Preview existing or newly selected image */}
-                  {selectedListing.imageUrl && (
-                    <img
-                      src={selectedListing.imageUrl}
-                      alt="Current"
-                      className="w-32 h-32 rounded-md object-cover mb-2 border"
-                      loading="lazy"
+                <YAxis allowDecimals={false} tick={{ fill: "#4b5563" }} />
+                <Tooltip />
+                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                  {analytics.byCategory.map((entry, index) => (
+                    <Cell
+                      key={index}
+                      fill={COLORS[index % COLORS.length]}
+                      stroke="#fff"
+                      strokeWidth={1}
                     />
-                  )}
-
-                  {/* File input for new image */}
-                  <Input
-                    id="image"
-                    name="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        setSelectedListing({
-                          ...selectedListing,
-                          image: file,
-                          imageUrl: URL.createObjectURL(file), // temporary preview
-                        });
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-
-              <SheetFooter className="flex justify-end gap-3 mt-4">
-                <SheetClose asChild>
-                  <Button variant="outline" className="mb-1">
-                    Cancel
-                  </Button>
-                </SheetClose>
-                <Button
-                  type="submit"
-                  className="bg-[#b6985a] hover:bg-[#a3874e] text-white"
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+        {/* Listings by Status */}
+        <Card className="shadow-lg border border-gray-100 rounded-xl">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-[#5156be]">
+              Listings by Status
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="h-64 flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={analytics.byStatus}
+                  dataKey="count"
+                  nameKey="_id"
+                  outerRadius={80}
+                  label={({ name, percent }) =>
+                    `${name} (${(percent * 100).toFixed(0)}%)`
+                  }
                 >
-                  Save Changes
-                </Button>
-              </SheetFooter>
-            </form>
-          )}
-        </SheetContent>
-      </Sheet>
+                  {analytics.byStatus.map((entry) => {
+                    let color = "#34d399";
+                    if (entry._id === "pending") color = "#facc15";
+                    else if (entry._id === "inactive") color = "#f87171";
+                    return <Cell key={entry._id} fill={color} />;
+                  })}
+                </Pie>
+                <Legend verticalAlign="bottom" />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
-};
-
-export default Test;
+}

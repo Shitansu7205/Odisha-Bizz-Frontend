@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Search, Bell, Sun, Moon, Settings, LogOut, User, ChevronDown ,PlusCircle ,List,Tags,Home } from "lucide-react";
+import {
+  Search,
+  Bell,
+  Sun,
+  Moon,
+  Settings,
+  LogOut,
+  User,
+  ChevronDown,
+  PlusCircle,
+  List,
+  Tags,
+  Home,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,11 +24,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
-
+import { KeyRound } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const AdminHeader = ({ activeTab }) => {
   const [theme, setTheme] = useState("light");
   const [isOpen, setIsOpen] = useState(false);
+  const API = import.meta.env.VITE_BACKEND_API_URL;
+  const navigate = useNavigate();
 
   // Handle theme toggling
   useEffect(() => {
@@ -25,6 +43,24 @@ const AdminHeader = ({ activeTab }) => {
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(
+        `${API}/logout`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (res.status === 200) {
+        toast.success("Logged out successfully!");
+        navigate("/admin/login"); // redirect to login
+      } else {
+        toast.error("Logout failed. Please try again.");
+      }
+    } catch (err) {
+      toast.error("Logout failed. Please try again.");
+    }
+  };
 
   return (
     <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 sticky top-0 z-20 shadow-sm">
@@ -49,14 +85,17 @@ const AdminHeader = ({ activeTab }) => {
         <img
           src="https://flagcdn.com/w20/in.png"
           alt="India Flag"
-           loading="lazy"
+          loading="lazy"
           className="w-6 h-4 rounded-sm border"
         />
 
         {/* Options Dropdown */}
         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-1 text-gray-700 hover:text-[#5156be]">
+            <Button
+              variant="ghost"
+              className="flex items-center gap-1 text-gray-700 hover:text-[#5156be]"
+            >
               Options <ChevronDown className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -89,8 +128,6 @@ const AdminHeader = ({ activeTab }) => {
               </a>
             </DropdownMenuItem>
 
-
-
             <DropdownMenuItem
               asChild
               className="flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer rounded-md"
@@ -101,11 +138,14 @@ const AdminHeader = ({ activeTab }) => {
               </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
-
         </DropdownMenu>
 
         {/* Notifications */}
-        <Button variant="ghost" size="icon" className="relative hover:bg-gray-100 dark:hover:bg-gray-800">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
           <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
         </Button>
@@ -117,7 +157,7 @@ const AdminHeader = ({ activeTab }) => {
               <img
                 src="https://ui-avatars.com/api/?name=Admin&background=5156be&color=fff"
                 alt="Profile"
-                 loading="lazy"
+                loading="lazy"
                 className="w-9 h-9 rounded-full border"
               />
             </button>
@@ -125,11 +165,20 @@ const AdminHeader = ({ activeTab }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Admin</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User className="w-4 h-4 mr-2" /> My Account
+
+            <DropdownMenuItem asChild>
+              <Link to="/admin/forgot-password" className="flex items-center">
+                <KeyRound className="w-4 h-4 mr-2 text-[#5156be]" /> Forgot
+                Password
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LogOut className="w-4 h-4 mr-2" /> Sign Out
+            <DropdownMenuItem asChild>
+              <button
+                onClick={handleLogout}
+                className="flex items-center w-full text-left"
+              >
+                <LogOut className="w-4 h-4 mr-2 text-red-500" /> Sign Out
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

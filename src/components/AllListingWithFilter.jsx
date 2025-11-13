@@ -88,12 +88,13 @@ const AllListingWithFilter = () => {
           page: pageNum,
           limit: 10,
         },
+        withCredentials: true,
       });
       setListings(res.data.listings || []);
       setTotalPages(res.data.totalPages || 1);
       setTotal(res.data.total || 0);
     } catch (error) {
-      console.error("Error fetching listings:", error);
+      // console.error("Error fetching listings:", error);
     } finally {
       setLoading(false);
     }
@@ -169,7 +170,7 @@ const AllListingWithFilter = () => {
         toast.error(response.data?.message || "Failed to update listing");
       }
     } catch (error) {
-      console.error("❌ Error updating listing:", error);
+      // console.error("❌ Error updating listing:", error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -186,7 +187,7 @@ const AllListingWithFilter = () => {
         fetchData();
       }
     } catch (err) {
-      console.error("Error deleting listing:", err);
+      // console.error("Error deleting listing:", err);
       toast.error("Failed to delete listing.");
     }
   };
@@ -199,19 +200,24 @@ const AllListingWithFilter = () => {
   };
 
   return (
-    <div >
+    <div className="lg:mt-14">
+      <div className="flex items-center gap-3 lg:mb-3.5">
+        <span className="text-2xl font-bold text-slate-800">
+          Listings Details
+        </span>
+      </div>
       <Card className="bg-white border-none shadow-none ">
         <div className="flex flex-col md:flex-row md:items-center md:justify-around mb-0 gap-4 ">
           {/* Left: Title */}
           <CardTitle className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
             <div className="flex items-center gap-3">
               <Filter size={24} className="text-blue-500" />
-              <span className="text-2xl font-bold text-slate-800">
+              <span className="text-lg font-semibold text-[#5156be]">
                 Total Listings
               </span>
             </div>
 
-            <span className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md">
+            <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-sm shadow-md">
               {total}
             </span>
           </CardTitle>
@@ -289,10 +295,11 @@ const AllListingWithFilter = () => {
                 className="w-40 h-40 mb-4 opacity-80"
               />
               <h3 className="text-lg font-semibold text-gray-800">
-              Opps!  No Listing Found
+                Opps! No Listing Found
               </h3>
               <p className="text-gray-500 text-sm mt-1">
-                Try checking another category with another state or come back later.
+                Try checking another category with another state or come back
+                later.
               </p>
             </div>
           ) : (

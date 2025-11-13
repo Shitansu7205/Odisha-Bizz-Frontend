@@ -21,7 +21,7 @@ const useCommentStore = create((set, get) => ({
         comments: { ...state.comments, [listingId]: sorted },
       }));
     } catch (err) {
-      console.error("❌ Error fetching comments:", err);
+      // console.error("❌ Error fetching comments:", err);
     } finally {
       set({ loading: false });
     }

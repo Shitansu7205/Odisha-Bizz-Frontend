@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Leads from "./Leads";
 import AllListingWithFilter from "./AllListingWithFilter";
+import AnalyticsDashboard from "./AnalyticsDashboard";
 
 const stats = [
   {
@@ -89,6 +90,7 @@ const HomeDashboard = () => {
           </Card>
         ))}
       </div>
+      <AnalyticsDashboard />
       <AllListingWithFilter />
       <Leads />
     </>

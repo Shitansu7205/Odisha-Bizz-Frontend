@@ -21,7 +21,7 @@ export const useResultStore = create((set, get) => ({
 
 
         if (fetchedCache[key]) {
-            console.log("✅ Using cached data for", key);
+            // console.log("✅ Using cached data for", key);
             set({
                 mainListings: fetchedCache[key].mainListings,
                 related: fetchedCache[key].related,
@@ -51,7 +51,7 @@ export const useResultStore = create((set, get) => ({
                 },
             }));
         } catch (err) {
-            console.error("Error fetching results:", err);
+            // console.error("Error fetching results:", err);
             set({ loading: false, error: err.message });
         }
 

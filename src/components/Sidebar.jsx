@@ -41,7 +41,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     {
       name: "Reports",
       icon: <BarChart2 size={18} />,
-      subItems: [{ name: "Sales" }, { name: "Revenue" }],
+      subItems: [{ name: "Analytics" }],
     },
     {
       name: "Pages",
@@ -61,15 +61,17 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-
             className="flex justify-center"
           >
-            <a href="/"><img src="/images/logo.png" alt="logo" className="w-[50%]"  loading="lazy"/></a>
-
-       
-            
+            <a href="/">
+              <img
+                src="/images/logo.png"
+                alt="logo"
+                className="w-[50%]"
+                loading="lazy"
+              />
+            </a>
           </motion.h1>
-
         )}
         {/* <button
           onClick={() => setCollapsed(!collapsed)}
@@ -95,10 +97,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                     ? toggleMenu(link.name)
                     : setActiveTab(link.name)
                 }
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${activeTab === link.name
-                  ? "bg-[#001846] text-white shadow-md"
-                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                  }`}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                  activeTab === link.name
+                    ? "bg-[#001846] text-white shadow-md"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                }`}
               >
                 <div className="flex items-center gap-3">
                   <span>{link.icon}</span>
@@ -128,10 +131,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                       <li key={sub.name}>
                         <button
                           onClick={() => setActiveTab(sub.name)}
-                          className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition ${activeTab === sub.name
-                            ? "bg-[#001846]/10 text-[#001846] font-medium"
-                            : "text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
-                            }`}
+                          className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition ${
+                            activeTab === sub.name
+                              ? "bg-[#001846]/10 text-[#001846] font-medium"
+                              : "text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+                          }`}
                         >
                           {sub.name}
                           {sub.badge && (

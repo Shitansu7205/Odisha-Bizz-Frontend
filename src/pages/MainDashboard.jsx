@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import AdminHeader from "@/components/AdminNav";
 import HomeDashboard from "../components/DashBoradHome";
 import AllListings from "@/components/DasBoardAllListing"
+import AllListingWithFilter from "@/components/AllListingWithFilter"
 
 export default function MainDashboard() {
     const API = import.meta.env.VITE_BACKEND_API_URL;
@@ -40,7 +41,7 @@ export default function MainDashboard() {
     const renderContent = () => {
         switch (activeTab) {
             case "All Listings":
-                return <AllListings />;
+                return <AllListingWithFilter />;
             case "Leads":
                 return <Leads />;
             case "Users":

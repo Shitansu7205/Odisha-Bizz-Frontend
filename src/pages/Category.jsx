@@ -10,7 +10,7 @@ const Category = () => {
       {/* Hero Section */}
       <section className="relative w-full h-60 sm:h-[300px] lg:h-[360px] flex items-center justify-center overflow-hidden">
         <img
-          src="https://ctsdemo.com/odishabiz-website/assets/images/Finance_Banking.jpg"
+          src="/images/Finance_Banking.webp"
           alt="Background Image"
           className="absolute inset-0 w-full h-full object-cover"
            loading="lazy"

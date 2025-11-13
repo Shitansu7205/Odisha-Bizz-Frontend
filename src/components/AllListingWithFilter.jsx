@@ -9,7 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil, Trash2, Filter, Search } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  Filter,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,6 +33,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 import {
   Sheet,
   SheetContent,
@@ -48,7 +57,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Loader from "@/components/Loader";
 
-const Test = () => {
+const AllListingWithFilter = () => {
   const API = import.meta.env.VITE_BACKEND_API_URL;
 
   const [listings, setListings] = useState([]);
@@ -58,19 +67,31 @@ const Test = () => {
   const [stateFilter, setStateFilter] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
 
   // Fetch function
-  const fetchData = async (cat = "", statusVal = "", stateVal = "") => {
+  const fetchData = async (
+    cat = "",
+    statusVal = "",
+    stateVal = "",
+    pageNum = 1
+  ) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/test`, {
+      const res = await axios.get(`${API}/all-products-dashboard`, {
         params: {
           category: cat.toLowerCase(),
           status: statusVal.toLowerCase(),
           state: stateVal.toLowerCase(),
+          page: pageNum,
+          limit: 10,
         },
       });
       setListings(res.data.listings || []);
+      setTotalPages(res.data.totalPages || 1);
+      setTotal(res.data.total || 0);
     } catch (error) {
       console.error("Error fetching listings:", error);
     } finally {
@@ -78,12 +99,21 @@ const Test = () => {
     }
   };
 
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage); // update state immediately
+      fetchData(selectedCategory, status, stateFilter, newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" }); // optional
+    }
+  };
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(selectedCategory, status, stateFilter, page);
+  }, [page]);
 
   const handleSearch = () => {
-    fetchData(selectedCategory, status, stateFilter);
+    setPage(1);
+    fetchData(selectedCategory, status, stateFilter, 1);
   };
 
   // 🟢 Fix: open sheet and set listing data
@@ -169,13 +199,21 @@ const Test = () => {
   };
 
   return (
-    <div className="p-6 bg-linear-to-br from-slate-50 to-blue-50 min-h-screen">
-      <Card className="shadow-lg border border-slate-200">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-around mb-6 gap-4">
+    <div >
+      <Card className="bg-white border-none shadow-none ">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-around mb-0 gap-4 ">
           {/* Left: Title */}
           <CardTitle className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
-            <Filter size={20} className="text-blue-500" />
-            All Listings
+            <div className="flex items-center gap-3">
+              <Filter size={24} className="text-blue-500" />
+              <span className="text-2xl font-bold text-slate-800">
+                Total Listings
+              </span>
+            </div>
+
+            <span className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-full shadow-md">
+              {total}
+            </span>
           </CardTitle>
 
           {/* Right: Filters */}
@@ -231,9 +269,9 @@ const Test = () => {
             {/* Search Button */}
             <Button
               onClick={handleSearch}
-              className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 shadow-sm rounded-md"
+              className="bg-[#5156be] hover:bg-[#5156be] text-white flex items-center gap-2 shadow-sm rounded-md"
             >
-              <Search size={16} /> Search
+              <Search size={16} /> Filter Listings
             </Button>
           </div>
         </div>
@@ -241,27 +279,40 @@ const Test = () => {
         <CardContent>
           {/* Table */}
           {loading ? (
-            <Loader />
+            <p>Loading...</p>
           ) : listings.length === 0 ? (
-            <div className="text-slate-500 text-center mt-10">
-              ❌ No listings found for the selected filters.
+            <div className="flex flex-col items-center justify-center py-16 text-center bg-white rounded-lg border border-gray-200">
+              <img
+                src="/images/data-not-found.png"
+                alt="No products"
+                loading="lazy"
+                className="w-40 h-40 mb-4 opacity-80"
+              />
+              <h3 className="text-lg font-semibold text-gray-800">
+              Opps!  No Listing Found
+              </h3>
+              <p className="text-gray-500 text-sm mt-1">
+                Try checking another category with another state or come back later.
+              </p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-lg border border-slate-200">
+            <div className="overflow-x-auto rounded-sm border border-slate-200 lg:pb-5">
               <Table>
-                <TableCaption className="text-slate-500 text-sm">
+                {/* <TableCaption className="text-slate-500 text-sm">
                   List of all available listings.
-                </TableCaption>
-                <TableHeader className="bg-slate-100">
-                  <TableRow className="text-slate-700">
-                    <TableHead className="py-3">No</TableHead>
-                    <TableHead>Image</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>State</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Created At</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                </TableCaption> */}
+                <TableHeader className="bg-[#5156be] text-white ">
+                  <TableRow className="hover:bg-[#5156be]/80">
+                    <TableHead className="py-3 text-white">No</TableHead>
+                    <TableHead className="text-white">Image</TableHead>
+                    <TableHead className="text-white">Title</TableHead>
+                    <TableHead className="text-white">Category</TableHead>
+                    <TableHead className="text-white">State</TableHead>
+                    <TableHead className="text-white">Status</TableHead>
+                    <TableHead className="text-white">Created At</TableHead>
+                    <TableHead className=" text-white text-center">
+                      Actions
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
 
@@ -269,7 +320,7 @@ const Test = () => {
                   {listings.map((listing, index) => (
                     <TableRow
                       key={listing._id || index}
-                      className="hover:bg-slate-50 transition-colors text-slate-700"
+                      className="hover:bg-slate-50 transition-colors text-slate-700 "
                     >
                       <TableCell className="py-2">{index + 1}</TableCell>
                       <TableCell>
@@ -285,10 +336,13 @@ const Test = () => {
                       <TableCell className="font-medium text-slate-800">
                         {listing.title}
                       </TableCell>
-                      <TableCell className="capitalize text-slate-600">
-                        {listing.category}
+                      <TableCell>
+                        <span className="text-xs capitalize px-3 py-1 rounded-full bg-linear-to-r from-indigo-500 to-purple-500 text-white font-medium">
+                          {listing.category}
+                        </span>
                       </TableCell>
-                      <TableCell className="capitalize text-slate-600">
+                      <TableCell className="capitalize text-slate-600 flex items-center gap-1.5 pt-4">
+                        <MapPin className="w-4 h-4 text-[#5156be]" />
                         {listing.address?.state || "-"}
                       </TableCell>
                       <TableCell>
@@ -305,9 +359,12 @@ const Test = () => {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-sm text-slate-500">
-                        {new Date(listing.createdAt).toLocaleDateString()}
+                        <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 text-xs">
+                          {new Date(listing.createdAt).toLocaleDateString()}
+                        </span>
                       </TableCell>
-                      <TableCell className="text-right space-x-2">
+
+                      <TableCell className="text-center space-x-2">
                         <Button
                           variant="outline"
                           size="sm"
@@ -329,18 +386,21 @@ const Test = () => {
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Confirm Deletion
+                              <AlertDialogTitle className="text-[#5156be]">
+                                Are you sure to delete?
                               </AlertDialogTitle>
-                              <AlertDialogDescription>
+                              <AlertDialogDescription className="text-black">
                                 Are you sure you want to delete this listing?
                                 This action cannot be undone.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogCancel className="bg-[#5156be] text-white hover:bg-[#5156be]/90 cursor-pointer hover:text-white">
+                                Cancel
+                              </AlertDialogCancel>
                               <AlertDialogAction
                                 onClick={() => handleDelete(listing._id)}
+                                className="bg-[#5156be] text-white hover:bg-[#5156be]/90 cursor-pointer"
                               >
                                 Yes, Delete
                               </AlertDialogAction>
@@ -352,6 +412,40 @@ const Test = () => {
                   ))}
                 </TableBody>
               </Table>
+              <div className="flex items-center justify-center gap-4 mt-6">
+                {/* Previous Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={page === 1}
+                  className="flex items-center gap-1 rounded-full px-3"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">Previous</span>
+                </Button>
+
+                {/* Page Info */}
+                <span className="text-sm text-slate-700">
+                  Page{" "}
+                  <span className="font-semibold text-[#5156be]">{page}</span>{" "}
+                  of {totalPages}
+                </span>
+
+                {/* Next Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    setPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={page === totalPages}
+                  className="flex items-center gap-1 rounded-full px-3"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>
@@ -359,23 +453,34 @@ const Test = () => {
 
       {/* ✅ Update Sheet */}
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="w-full max-w-md bg-white">
-          <SheetHeader>
-            <SheetTitle className="text-[#b6985a]">Edit Listing</SheetTitle>
-            <SheetDescription>
+        <SheetContent
+          side="right"
+          className="w-full max-w-lg bg-white shadow-xl rounded-xs overflow-hidden "
+        >
+          <SheetHeader className="px-6 py-4 border-b">
+            <SheetTitle className="text-[#5156be] text-2xl font-semibold">
+              Edit Listing
+            </SheetTitle>
+            <SheetDescription className="text-gray-500 mt-1 text-sm">
               Update the listing details below and click save when finished.
             </SheetDescription>
           </SheetHeader>
 
           {selectedListing && (
-            <form
+            <motion.form
               onSubmit={handleUpdate}
-              className="space-y-5 p-4 mt-4 overflow-y-auto"
+              className="space-y-5 px-6 py-4 overflow-y-auto max-h-[75vh]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
             >
               {/* Title */}
               <div className="flex flex-col">
-                <Label htmlFor="title" className="mb-1">
-                  Title
+                <Label
+                  htmlFor="title"
+                  className="mb-2 font-medium text-gray-700"
+                >
+                  Buisness Title
                 </Label>
                 <Input
                   id="title"
@@ -383,12 +488,16 @@ const Test = () => {
                   value={selectedListing.title}
                   onChange={handleChange}
                   placeholder="Enter title"
+                  className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                 />
               </div>
 
               {/* Description */}
               <div className="flex flex-col">
-                <Label htmlFor="description" className="mb-1">
+                <Label
+                  htmlFor="description"
+                  className="mb-2 font-medium text-gray-700"
+                >
                   Description
                 </Label>
                 <Textarea
@@ -398,31 +507,26 @@ const Test = () => {
                   onChange={handleChange}
                   rows={4}
                   placeholder="Enter description"
+                  className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                 />
               </div>
 
               {/* Category */}
-              {/* <div className="flex flex-col">
-                                    <Label htmlFor="category" className="mb-1">Category</Label>
-                                    <Input
-                                        id="category"
-                                        name="category"
-                                        value={selectedListing.category}
-                                        onChange={handleChange}
-                                        placeholder="Enter category (e.g., Restaurant, Travel)"
-                                    />
-                                </div> */}
               <div className="flex flex-col">
-                <Label htmlFor="v" className="mb-1">
+                <Label
+                  htmlFor="category"
+                  className="mb-1 font-medium text-gray-700"
+                >
                   Category
                 </Label>
                 <select
                   id="category"
                   name="category"
-                  value={selectedListing.category}
+                  value={selectedListing.category || ""}
                   onChange={handleChange}
                   className="border border-gray-300 rounded-md p-2 text-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                 >
+                  <option value="">{selectedListing.category}</option>
                   <option value="Real Estate">Real Estate</option>
                   <option value="Healthcare">Healthcare</option>
                   <option value="Finance & Banking">Finance & Banking</option>
@@ -449,7 +553,10 @@ const Test = () => {
 
               {/* Status */}
               <div className="flex flex-col">
-                <Label htmlFor="status" className="mb-1">
+                <Label
+                  htmlFor="status"
+                  className="mb-2 font-medium text-gray-700"
+                >
                   Status
                 </Label>
                 <select
@@ -465,9 +572,12 @@ const Test = () => {
                 </select>
               </div>
 
-              {/* Phone */}
+              {/* Contact Info */}
               <div className="flex flex-col">
-                <Label htmlFor="phone" className="mb-1">
+                <Label
+                  htmlFor="phone"
+                  className="mb-2 font-medium text-gray-700"
+                >
                   Phone
                 </Label>
                 <Input
@@ -476,12 +586,15 @@ const Test = () => {
                   value={selectedListing.phone}
                   onChange={handleChange}
                   placeholder="Enter phone number"
+                  className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                 />
               </div>
 
-              {/* Email */}
               <div className="flex flex-col">
-                <Label htmlFor="email" className="mb-1">
+                <Label
+                  htmlFor="email"
+                  className="mb-2 font-medium text-gray-700"
+                >
                   Email
                 </Label>
                 <Input
@@ -490,230 +603,121 @@ const Test = () => {
                   value={selectedListing.email}
                   onChange={handleChange}
                   placeholder="Enter email address"
+                  className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                 />
               </div>
 
-              {/* Address Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex flex-col">
-                  <Label htmlFor="district" className="mb-1">
-                    district
+              {/* Address */}
+              {["district", "state", "pincode"].map((field) => (
+                <div className="flex flex-col" key={field}>
+                  <Label
+                    htmlFor={field}
+                    className="mb-2 font-medium text-gray-700"
+                  >
+                    {field.charAt(0).toUpperCase() + field.slice(1)}
                   </Label>
                   <Input
-                    id="district"
-                    name="district"
-                    value={selectedListing.address?.district || ""}
+                    id={field}
+                    name={field}
+                    value={selectedListing.address?.[field] || ""}
                     onChange={(e) =>
                       setSelectedListing({
                         ...selectedListing,
                         address: {
                           ...selectedListing.address,
-                          district: e.target.value,
+                          [field]: e.target.value,
                         },
                       })
                     }
-                    placeholder="district"
+                    placeholder={field}
+                    className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
                   />
                 </div>
+              ))}
 
-                <div className="flex flex-col">
-                  <Label htmlFor="state" className="mb-1">
-                    State
-                  </Label>
-                  <Input
-                    id="state"
-                    name="state"
-                    value={selectedListing.address?.state || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        address: {
-                          ...selectedListing.address,
-                          state: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="State"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="pincode" className="mb-1">
-                    Pincode
-                  </Label>
-                  <Input
-                    id="pincode"
-                    name="pincode"
-                    value={selectedListing.address?.pincode || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        address: {
-                          ...selectedListing.address,
-                          pincode: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Pincode"
-                  />
-                </div>
-              </div>
-
-              {/* Social Media Links */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="flex flex-col">
-                  <Label htmlFor="facebook" className="mb-1">
-                    Facebook
-                  </Label>
-                  <Input
-                    id="facebook"
-                    name="facebook"
-                    value={selectedListing.socialMedia?.facebook || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          facebook: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Facebook URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="instagram" className="mb-1">
-                    Instagram
-                  </Label>
-                  <Input
-                    id="instagram"
-                    name="instagram"
-                    value={selectedListing.socialMedia?.instagram || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          instagram: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Instagram URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="twitter" className="mb-1">
-                    Twitter
-                  </Label>
-                  <Input
-                    id="twitter"
-                    name="twitter"
-                    value={selectedListing.socialMedia?.twitter || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          twitter: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Twitter URL"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <Label htmlFor="linkedin" className="mb-1">
-                    LinkedIn
-                  </Label>
-                  <Input
-                    id="linkedin"
-                    name="linkedin"
-                    value={selectedListing.socialMedia?.linkedin || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          linkedin: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="LinkedIn URL"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="website" className="mb-1">
-                    Website
-                  </Label>
-                  <Input
-                    id="website"
-                    name="website"
-                    value={selectedListing.socialMedia?.website || ""}
-                    onChange={(e) =>
-                      setSelectedListing({
-                        ...selectedListing,
-                        socialMedia: {
-                          ...selectedListing.socialMedia,
-                          website: e.target.value,
-                        },
-                      })
-                    }
-                    placeholder="Website URL"
-                  />
-                </div>
-                {/* Image Upload */}
-                <div className="flex flex-col">
-                  <Label htmlFor="image" className="mb-1">
-                    Upload Image
-                  </Label>
-
-                  {/* Preview existing or newly selected image */}
-                  {selectedListing.imageUrl && (
-                    <img
-                      src={selectedListing.imageUrl}
-                      alt="Current"
-                      className="w-32 h-32 rounded-md object-cover mb-2 border"
-                      loading="lazy"
-                    />
-                  )}
-
-                  {/* File input for new image */}
-                  <Input
-                    id="image"
-                    name="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
+              {/* Social Media */}
+              {["facebook", "instagram", "twitter", "linkedin", "website"].map(
+                (sm) => (
+                  <div className="flex flex-col" key={sm}>
+                    <Label
+                      htmlFor={sm}
+                      className="mb-2 font-medium text-gray-700"
+                    >
+                      {sm.charAt(0).toUpperCase() + sm.slice(1)}
+                    </Label>
+                    <Input
+                      id={sm}
+                      name={sm}
+                      value={selectedListing.socialMedia?.[sm] || ""}
+                      onChange={(e) =>
                         setSelectedListing({
                           ...selectedListing,
-                          image: file,
-                          imageUrl: URL.createObjectURL(file), // temporary preview
-                        });
+                          socialMedia: {
+                            ...selectedListing.socialMedia,
+                            [sm]: e.target.value,
+                          },
+                        })
                       }
-                    }}
+                      placeholder={`${sm} URL`}
+                      className="shadow-sm focus:ring-[#b6985a] focus:border-[#b6985a]"
+                    />
+                  </div>
+                )
+              )}
+
+              {/* Image Upload */}
+              <div className="flex flex-col">
+                <Label
+                  htmlFor="image"
+                  className="mb-2 font-medium text-gray-700"
+                >
+                  Upload Image
+                </Label>
+                {selectedListing.imageUrl && (
+                  <img
+                    src={selectedListing.imageUrl}
+                    alt="Preview"
+                    className="w-32 h-32 rounded-md object-cover mb-2 border shadow-sm"
+                    loading="lazy"
                   />
-                </div>
+                )}
+                <Input
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setSelectedListing({
+                        ...selectedListing,
+                        image: file,
+                        imageUrl: URL.createObjectURL(file),
+                      });
+                    }
+                  }}
+                  className="shadow-sm focus:ring-[#5156be] focus:border-[#b6985a]"
+                />
               </div>
 
+              {/* Footer Buttons */}
               <SheetFooter className="flex justify-end gap-3 mt-4">
                 <SheetClose asChild>
-                  <Button variant="outline" className="mb-1">
+                  <Button
+                    variant="outline"
+                    className="hover:bg-gray-100 transition"
+                  >
                     Cancel
                   </Button>
                 </SheetClose>
                 <Button
                   type="submit"
-                  className="bg-[#b6985a] hover:bg-[#a3874e] text-white"
+                  className="bg-[#5156be] hover:bg-[#5156be] text-white transition-all shadow-md"
                 >
                   Save Changes
                 </Button>
               </SheetFooter>
-            </form>
+            </motion.form>
           )}
         </SheetContent>
       </Sheet>
@@ -721,4 +725,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default AllListingWithFilter;

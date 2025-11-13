@@ -440,6 +440,8 @@ export default function CategoryPage() {
             );
             const data = await res.json();
             const detectedDistrict = data.address.state_district || "Khordha";
+
+            console.log("Detected District:", detectedDistrict);
             setDistrict(detectedDistrict);
             setSelectedDistrict(detectedDistrict);
           } catch (err) {

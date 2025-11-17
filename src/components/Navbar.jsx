@@ -27,13 +27,6 @@
 // import { toast } from "react-toastify";
 // import useAuthStore from "@/store/useAuthStore";
 
-
-
-
-
-
-
-
 // const Navbar = () => {
 //     const API = import.meta.env.VITE_BACKEND_API_URL;
 //     const { isAuthenticated, checkAuth } = useAuthStore();
@@ -43,25 +36,23 @@
 //         checkAuth();
 //     }, []);
 
-
-    // useEffect(() => {
-    //     const checkAuth = async () => {
-    //         try {
-    //             const res = await axios.get(`${API}/check-auth`, { withCredentials: true });
-    //             if (res.status === 200) {
-    //                 setIsAuthenticated(true);
-    //             }
-    //         } catch (error) {
-    //             if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-    //                 setIsAuthenticated(false);
-    //             } else {
-    //                 console.error("Auth check failed:", error);
-    //             }
-    //         }
-    //     };
-    //     checkAuth();
-    // }, []);
-
+// useEffect(() => {
+//     const checkAuth = async () => {
+//         try {
+//             const res = await axios.get(`${API}/check-auth`, { withCredentials: true });
+//             if (res.status === 200) {
+//                 setIsAuthenticated(true);
+//             }
+//         } catch (error) {
+//             if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+//                 setIsAuthenticated(false);
+//             } else {
+//                 console.error("Auth check failed:", error);
+//             }
+//         }
+//     };
+//     checkAuth();
+// }, []);
 
 //     const handleLogout = async () => {
 //         try {
@@ -290,14 +281,6 @@
 
 // export default Navbar;
 
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -310,11 +293,7 @@ import {
   ChevronDown,
   MessageCircle,
 } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { NavLink, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
@@ -380,13 +359,13 @@ const Navbar = () => {
             <img
               src="/images/logo.png"
               alt="Odisha Bizz"
-               loading="lazy"
+              loading="lazy"
               className="h-[50px] w-[140px] object-contain hidden sm:block"
             />
             <img
               src="/images/logo.png"
               alt="Odisha Bizz"
-               loading="lazy"
+              loading="lazy"
               className="h-10 object-contain sm:hidden"
             />
           </Link>
@@ -444,65 +423,73 @@ const Navbar = () => {
 
           <div className="flex items-center gap-4">
             {isAuthenticated && (
-              <Button
-                asChild
-                className="flex items-center gap-2 bg-[#249732] hover:bg-green-700 text-white rounded-full px-5 py-2 font-medium shadow-md transition-all"
-              >
-                <Link to="/listing/create">
-                  <Plus className="w-5 h-5" /> Add Your One
-                </Link>
-              </Button>
+              <>
+                <Button
+                  asChild
+                  className="flex items-center gap-2 bg-[#249732] hover:bg-green-700 text-white rounded-full px-5 py-2 font-medium shadow-md transition-all"
+                >
+                  <Link to="/listing/create">
+                    <Plus className="w-5 h-5" /> Add Your One
+                  </Link>
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="cursor-pointer flex items-center gap-2 bg-[#012a7a] hover:bg-[#001846] text-white rounded-full px-6 py-2 shadow-md transition-all">
+                      <User className="w-5 h-5" />
+                      <span className="font-medium">Dashboard</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent
+                    align="end"
+                    className="mt-2 w-44 rounded-xl shadow-lg border bg-white"
+                  >
+                    <DropdownMenuLabel className="text-sm font-semibold text-gray-700">
+                      Account
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/admin/dashboard"
+                        target="_blank"
+                        className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
+                      >
+                        <User className="w-4 h-4" /> My Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/admin/forgot-password"
+                        className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
+                      >
+                        <KeyRound className="w-4 h-4" /> Reset Password
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      target="_blank"
+                      className="flex items-center gap-2 text-red-600 hover:text-red-700 cursor-pointer"
+                    >
+                      <LogOut className="w-4 h-4" /> Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
             )}
 
-            {isAuthenticated && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button className="cursor-pointer flex items-center gap-2 bg-[#012a7a] hover:bg-[#001846] text-white rounded-full px-6 py-2 shadow-md transition-all">
-                    <User className="w-5 h-5" />
-                    <span className="font-medium">Dashboard</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent
-                  align="end"
-                  className="mt-2 w-44 rounded-xl shadow-lg border bg-white"
-                >
-                  <DropdownMenuLabel className="text-sm font-semibold text-gray-700">
-                    Account
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuItem asChild>
-                    <Link
-                      to="/admin/dashboard"
-                      target="_blank"
-                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
-                    >
-                      <User className="w-4 h-4" /> My Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem asChild>
-                    <Link
-                      to="/admin/forgot-password"
-                      className="flex items-center gap-2 text-gray-700 hover:text-blue-600 cursor-pointer"
-                    >
-                      <KeyRound className="w-4 h-4" /> Reset Password
-                    </Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuItem
-                    onClick={handleLogout}
-                    target="_blank"
-                    className="flex items-center gap-2 text-red-600 hover:text-red-700 cursor-pointer"
-                  >
-                    <LogOut className="w-4 h-4" /> Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {!isAuthenticated && (
+              <Button
+                onClick={() => handleMenuClick("/admin/login")}
+                className="bg-[#012a7a] hover:bg-[#012a7a] text-white rounded-full px-6 py-2 shadow-md flex items-center gap-2"
+              >
+                <LogIn className="w-5 h-5" /> Sign In
+              </Button>
             )}
           </div>
         </nav>

@@ -7,6 +7,7 @@ import FeaturedServices from '@/components/FeaturedServices'
 import Cta from '@/components/Cta'
 import HomeSearchHeader from '@/components/HomeSearchHeader'
 import HomeBanner from '@/components/HomeBanner'
+import Testimonial from '@/components/Testimonial'
 
 const Home = () => {
     return (
@@ -19,6 +20,8 @@ const Home = () => {
             {/* <Cta /> */}
             <WhyChooseUs />
             {/* <BusinessListingForm /> */}
+      
+            <Testimonial />
 
         </>
     )

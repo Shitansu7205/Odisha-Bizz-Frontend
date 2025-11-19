@@ -14,11 +14,22 @@ import {
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 
 const About = () => {
     const router = useNavigate();
     return (
         <>
+
+            <Helmet>
+                <title>About Us  || Odisha Bizz</title>
+                <meta
+                    name="description"
+                    content="Find the best hotels in Manali with top amenities, great prices, and easy booking."
+                />
+            </Helmet>
+            
             {/* Hero Section */}
             <section className="relative w-full h-60 sm:h-[300px] lg:h-[360px] flex items-center justify-center overflow-hidden">
                 <img
@@ -52,7 +63,7 @@ const About = () => {
                     <div className="w-full md:w-1/2">
                         <img
                             src="/images/about-1st.jpg"
-                             loading="lazy"
+                            loading="lazy"
                             alt="Odisha Bizz team working"
                             className="rounded-xl shadow-lg w-full object-cover"
                         />
